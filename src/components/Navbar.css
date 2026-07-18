@@ -5,7 +5,7 @@
     transform: translateX(-50%);
     width: calc(100% - 40px);
     max-width: var(--container-max);
-    z-index: 50;
+    z-index: 100;
     background-image: url('../assets/indian_patriot_bg.png');
     background-size: cover;
     background-position: center;
@@ -25,23 +25,26 @@
     align-items: center;
     padding-top: 1rem;
     padding-bottom: 1rem;
-    background-color: rgba(22, 38, 22, 0.6); /* Dark overlay for text readability */
+    background-color: rgba(22, 38, 22, 0.6);
     width: 100%;
     border-radius: 12px;
 }
 
 .navbar-brand {
     color: #ffffff;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    font-size: clamp(14px, 3vw, 22px);
+    flex-shrink: 1;
+    min-width: 0;
 }
 
 .navbar-links {
     display: none;
-    gap: var(--gutter);
+    gap: 20px;
     align-items: center;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 900px) {
     .navbar-links {
         display: flex;
     }
@@ -53,15 +56,14 @@
     transition: all 0.3s;
     padding-bottom: 0.25rem;
     border-bottom: 2px solid transparent;
-    text-underline-offset: 4px;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    font-size: 10px;
+    white-space: nowrap;
 }
 
 .nav-link:hover {
     color: #ffffff;
-    text-decoration: underline;
-    text-decoration-color: #ffffff;
-    text-decoration-thickness: 2px;
+    border-bottom-color: #ffffff;
 }
 
 .nav-link.active {
@@ -70,17 +72,196 @@
     font-weight: bold;
 }
 
+/* ── Right side group ── */
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
 .navbar-btn {
     background-color: transparent;
     color: #ffffff;
-    padding: 0.5rem 1.5rem;
+    padding: 0.5rem 1.2rem;
     border: 1px solid #ffffff;
     cursor: pointer;
     transition: all 0.3s;
     backdrop-filter: blur(4px);
+    font-size: 10px;
+    white-space: nowrap;
 }
 
 .navbar-btn:hover {
     background-color: #ffffff;
     color: #000000;
+}
+
+/* ── Hamburger Button ── */
+.navbar-hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.navbar-hamburger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+/* X animation */
+.navbar-hamburger.open span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.navbar-hamburger.open span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.navbar-hamburger.open span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+@media (min-width: 900px) {
+    .navbar-hamburger {
+        display: none;
+    }
+
+    .navbar-btn {
+        display: block;
+    }
+}
+
+@media (max-width: 899px) {
+    .navbar-btn {
+        display: none;
+    }
+}
+
+/* ── Mobile Drawer ── */
+.mobile-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 280px;
+    max-width: 85vw;
+    background: #050e1a;
+    border-left: 1px solid rgba(233, 195, 73, 0.2);
+    z-index: 200;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-drawer--open {
+    transform: translateX(0);
+}
+
+.mobile-drawer__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 24px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    margin-top: 8px;
+}
+
+.mobile-drawer__brand {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.3);
+    text-transform: uppercase;
+    font-family: var(--font-inter);
+}
+
+.mobile-drawer__close {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.mobile-drawer__close:hover {
+    background: rgba(233, 195, 73, 0.15);
+    border-color: rgba(233, 195, 73, 0.4);
+    color: #e9c349;
+}
+
+.mobile-drawer__close .material-symbols-outlined {
+    font-size: 20px;
+}
+
+.mobile-drawer__inner {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 24px 40px;
+    gap: 4px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.mobile-nav-link {
+    display: block;
+    padding: 14px 0;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    transition: color 0.2s ease, padding-left 0.2s ease;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link.active {
+    color: #e9c349;
+    padding-left: 8px;
+}
+
+.mobile-contact-btn {
+    display: block;
+    margin-top: 24px;
+    padding: 14px 0;
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--primary);
+    background: #e9c349;
+    border-radius: 4px;
+    transition: opacity 0.2s;
+}
+
+.mobile-contact-btn:hover {
+    opacity: 0.85;
+}
+
+/* ── Backdrop ── */
+.mobile-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    z-index: 150;
 }

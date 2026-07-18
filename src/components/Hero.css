@@ -122,8 +122,17 @@
 }
 
 @keyframes pulse-dot {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.7); }
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(0.7);
+    }
 }
 
 .hero-v2__title {
@@ -244,7 +253,7 @@
     /* Fade out bottom — blends into background */
     -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
     mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
-    filter: drop-shadow(0 30px 60px rgba(0,0,0,0.7));
+    filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.7));
 }
 
 /* Floating IAS batch badge */
@@ -262,7 +271,7 @@
     align-items: center;
     gap: 4px;
     z-index: 5;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
 .hero-v2__photo-badge-num {
@@ -342,8 +351,19 @@
 }
 
 @keyframes scroll-line {
-    0%, 100% { opacity: 1; transform: scaleY(1); transform-origin: top; }
-    50% { opacity: 0.4; transform: scaleY(0.5); transform-origin: top; }
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scaleY(1);
+        transform-origin: top;
+    }
+
+    50% {
+        opacity: 0.4;
+        transform: scaleY(0.5);
+        transform-origin: top;
+    }
 }
 
 /* ── Bottom strip ── */
@@ -450,20 +470,56 @@
 
     .hero-v2__strip-tag {
         flex: 0 0 50%;
-        border-bottom: 1px solid rgba(255,255,255,0.06);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
 }
 
 /* ── Keep old utility classes alive for other components ── */
-.text-secondary-fixed { color: var(--secondary-fixed); }
-.text-white { color: white; }
-.text-surface-variant { color: var(--surface-variant); }
-.text-surface-container-highest { color: var(--surface-container-highest); }
-.mb-4 { margin-bottom: 1rem; }
-.mb-6 { margin-bottom: 1.5rem; }
-.mb-8 { margin-bottom: 2rem; }
-.mb-10 { margin-bottom: 2.5rem; }
-.tracking-wide { letter-spacing: 0.3em; text-transform: uppercase; }
-.font-light { font-weight: 300; }
-.opacity-90 { opacity: 0.9; }
-.max-w-xl { max-width: 36rem; }
+.text-secondary-fixed {
+    color: var(--secondary-fixed);
+}
+
+.text-white {
+    color: white;
+}
+
+.text-surface-variant {
+    color: var(--surface-variant);
+}
+
+.text-surface-container-highest {
+    color: var(--surface-container-highest);
+}
+
+.mb-4 {
+    margin-bottom: 1rem;
+}
+
+.mb-6 {
+    margin-bottom: 1.5rem;
+}
+
+.mb-8 {
+    margin-bottom: 2rem;
+}
+
+.mb-10 {
+    margin-bottom: 2.5rem;
+}
+
+.tracking-wide {
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+}
+
+.font-light {
+    font-weight: 300;
+}
+
+.opacity-90 {
+    opacity: 0.9;
+}
+
+.max-w-xl {
+    max-width: 36rem;
+}

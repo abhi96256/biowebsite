@@ -91,17 +91,102 @@ const MapSection = () => {
           ))}
         </div>
 
-        {/* Center — Map */}
         <div className="geo-map-col">
           <div className="geo-map-wrap">
-            {/* Glow pulse behind map */}
             <div className="geo-map-glow" />
-            <img
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIBcYUjamJZ7hvbs_8p37kucSty9hF_K5MYPg7Wsta4FBacPrqPN4-0NjTDwkv8DVpUGRTVMt_0sTpvuO7e47ezs0UusZ6kThyQsbRAmiMAE7hyB_1J-DFm1fdPQ7JP0BMwHSE_4t-5RGiZED0IRgezSAj6DAC1pKwZ1e4s9v9aghL1EBVaIzQKtRvOQbN-iP-05sv_l_fSyT7Wh1vC4X7AM3bG1gLMlZYQ3ptoAKjDwbtR2M9"
-              alt="Map of Haryana"
-              className="geo-map-img"
-            />
-            {/* Active district overlay */}
+
+            {/* Haryana SVG Map */}
+            <div className="geo-map-frame">
+              <svg viewBox="0 0 400 380" xmlns="http://www.w3.org/2000/svg" className="geo-svg-map">
+                {/* Haryana state outline — simplified */}
+                <defs>
+                  <filter id="glow-filter">
+                    <feGaussianBlur stdDeviation="3" result="blur"/>
+                    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                  </filter>
+                  <radialGradient id="stateGrad" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stopColor="rgba(233,195,73,0.12)"/>
+                    <stop offset="100%" stopColor="rgba(233,195,73,0.02)"/>
+                  </radialGradient>
+                </defs>
+
+                {/* State fill */}
+                <path
+                  d="M80 60 L160 30 L240 40 L320 70 L350 130 L340 200 L310 260 L280 320 L220 350 L160 340 L110 300 L70 240 L50 170 L60 110 Z"
+                  fill="url(#stateGrad)"
+                  stroke="rgba(233,195,73,0.4)"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+
+                {/* Internal district lines */}
+                <g stroke="rgba(233,195,73,0.15)" strokeWidth="0.8" fill="none">
+                  <line x1="80" y1="150" x2="350" y2="150"/>
+                  <line x1="80" y1="230" x2="310" y2="230"/>
+                  <line x1="200" y1="40" x2="200" y2="350"/>
+                  <line x1="140" y1="40" x2="110" y2="300"/>
+                  <line x1="270" y1="50" x2="280" y2="320"/>
+                </g>
+
+                {/* Grid dots */}
+                {[...Array(8)].map((_, r) =>
+                  [...Array(8)].map((_, c) => (
+                    <circle key={`${r}-${c}`} cx={70 + c * 40} cy={55 + r * 40}
+                      r="1" fill="rgba(233,195,73,0.2)" />
+                  ))
+                )}
+
+                {/* District markers */}
+                {[
+                  { name: 'Gurugram', x: 130, y: 180, active: false },
+                  { name: 'Rohtak',   x: 185, y: 145, active: false },
+                  { name: 'Ambala',   x: 200, y: 75,  active: false },
+                  { name: 'Hisar',    x: 110, y: 200, active: false },
+                  { name: 'Chandigarh', x: 240, y: 60, active: false },
+                  { name: 'Faridabad', x: 160, y: 220, active: false },
+                ].map(d => (
+                  <g key={d.name}>
+                    {/* Pulse ring */}
+                    <circle cx={d.x} cy={d.y} r="10" fill="rgba(233,195,73,0.08)"
+                      stroke="rgba(233,195,73,0.25)" strokeWidth="0.8"/>
+                    {/* Dot */}
+                    <circle cx={d.x} cy={d.y} r="4"
+                      fill={d.active ? '#e9c349' : 'rgba(233,195,73,0.6)'}
+                      stroke="#050e1a" strokeWidth="1.5"
+                      filter="url(#glow-filter)"/>
+                    {/* Label */}
+                    <text x={d.x + 12} y={d.y + 4}
+                      fontSize="9" fill="rgba(255,255,255,0.65)"
+                      fontFamily="Inter, sans-serif" letterSpacing="0.05em">
+                      {d.name}
+                    </text>
+                  </g>
+                ))}
+
+                {/* State label */}
+                <text x="200" y="195" textAnchor="middle"
+                  fontSize="22" fill="rgba(233,195,73,0.06)"
+                  fontFamily="serif" fontWeight="700" letterSpacing="0.1em">
+                  HARYANA
+                </text>
+
+                {/* Compass rose */}
+                <g transform="translate(355,45)">
+                  <text x="0" y="0" textAnchor="middle" fontSize="8"
+                    fill="rgba(255,255,255,0.3)" fontFamily="sans-serif">N</text>
+                  <line x1="0" y1="4" x2="0" y2="14"
+                    stroke="rgba(233,195,73,0.4)" strokeWidth="1"/>
+                </g>
+              </svg>
+
+              {/* Scale bar */}
+              <div className="geo-map-scale font-label-caps">
+                <span className="geo-scale-line" />
+                <span>0 &nbsp; 50 km</span>
+              </div>
+            </div>
+
+            {/* Active district badge */}
             <div className="geo-map-badge">
               <span className="geo-map-badge-icon">{DISTRICTS[activeDistrict].icon}</span>
               <div>

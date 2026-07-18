@@ -3,7 +3,7 @@
    ═══════════════════════════════════════════ */
 
 .footer-v2 {
-  background: #050e1a;
+  background: var(--primary);
   color: white;
   position: relative;
   overflow: hidden;
