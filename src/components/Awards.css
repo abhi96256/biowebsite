@@ -1,0 +1,65 @@
+.awards-section {
+    padding: var(--section-gap) 0;
+    background-color: var(--surface-container-lowest);
+}
+
+.text-center { text-align: center; }
+.mb-16 { margin-bottom: 4rem; }
+.mt-4 { margin-top: 1rem; }
+.tracking-widest { letter-spacing: 0.2em; }
+.text-secondary { color: var(--secondary); }
+.text-primary { color: var(--primary); }
+.text-on-surface-variant-70 { color: rgba(85, 66, 64, 0.7); }
+
+.awards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+}
+
+@media (min-width: 768px) {
+    .awards-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1024px) {
+    .awards-grid { grid-template-columns: repeat(3, 1fr); gap: 3rem; }
+}
+
+.award-item {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.award-img-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.award-img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.award-img-wrapper:hover .award-img {
+    transform: scale(1.1);
+}
+
+.award-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(33, 0, 0, 0.2);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.award-img-wrapper:hover .award-overlay {
+    opacity: 1;
+}
+
+.pl-4 { padding-left: 1rem; }
+.border-l { border-left: 1px solid var(--secondary); }
+.mb-1 { margin-bottom: 0.25rem; }
+.title-size { font-size: 20px; }

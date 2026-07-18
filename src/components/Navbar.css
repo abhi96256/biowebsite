@@ -1,0 +1,86 @@
+.navbar {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    max-width: var(--container-max);
+    z-index: 50;
+    background-image: url('../assets/indian_patriot_bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+.navbar.scrolled {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background-color: rgba(22, 38, 22, 0.6); /* Dark overlay for text readability */
+    width: 100%;
+    border-radius: 12px;
+}
+
+.navbar-brand {
+    color: #ffffff;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+}
+
+.navbar-links {
+    display: none;
+    gap: var(--gutter);
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .navbar-links {
+        display: flex;
+    }
+}
+
+.nav-link {
+    color: #e2e8f0;
+    text-transform: uppercase;
+    transition: all 0.3s;
+    padding-bottom: 0.25rem;
+    border-bottom: 2px solid transparent;
+    text-underline-offset: 4px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.nav-link:hover {
+    color: #ffffff;
+    text-decoration: underline;
+    text-decoration-color: #ffffff;
+    text-decoration-thickness: 2px;
+}
+
+.nav-link.active {
+    color: #ffffff;
+    border-bottom-color: #ffffff;
+    font-weight: bold;
+}
+
+.navbar-btn {
+    background-color: transparent;
+    color: #ffffff;
+    padding: 0.5rem 1.5rem;
+    border: 1px solid #ffffff;
+    cursor: pointer;
+    transition: all 0.3s;
+    backdrop-filter: blur(4px);
+}
+
+.navbar-btn:hover {
+    background-color: #ffffff;
+    color: #000000;
+}

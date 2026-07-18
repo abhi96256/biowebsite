@@ -1,0 +1,114 @@
+.timeline-section {
+    padding: var(--section-gap) 0;
+    background-color: var(--surface-container-low);
+}
+
+.timeline-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.tracking-widest { letter-spacing: 0.2em; }
+.block { display: block; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.italic { font-style: italic; }
+.text-secondary { color: var(--secondary); }
+.text-primary { color: var(--primary); }
+.text-on-surface-variant { color: var(--on-surface-variant); }
+
+.timeline-container {
+    max-width: 56rem;
+    margin: 0 auto;
+    position: relative;
+}
+
+.vertical-line {
+    width: 1px;
+    background: var(--secondary);
+    position: absolute;
+    left: 20px;
+    height: 100%;
+}
+
+@media (min-width: 768px) {
+    .vertical-line {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 6rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.timeline-item.reverse {
+    flex-direction: row-reverse;
+}
+
+.timeline-item.mb-small {
+    margin-bottom: 2rem;
+}
+
+.timeline-year {
+    width: 41.666667%;
+}
+
+.right-align { text-align: right; padding-right: 3rem; }
+.left-align { text-align: left; padding-left: 3rem; }
+
+.timeline-dot {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1rem;
+    height: 1rem;
+    background-color: var(--secondary);
+    border-radius: 9999px;
+    border: 4px solid var(--surface-container-low);
+    z-index: 10;
+}
+
+.timeline-content {
+    width: 100%;
+    padding-left: 3rem;
+}
+
+@media (min-width: 768px) {
+    .timeline-content {
+        width: 41.666667%;
+        padding-left: 0;
+    }
+    .left-pad { padding-left: 3rem; }
+    .right-pad { padding-right: 3rem; }
+}
+
+.timeline-card {
+    background: white;
+    padding: 2rem;
+}
+
+.title-size { font-size: 24px; }
+
+.md-block { display: none; }
+@media (min-width: 768px) {
+    .md-block { display: block; }
+    .mobile-only { display: none; }
+}
+.mobile-only { display: block; }
+
+.timeline-list {
+    color: rgba(85, 66, 64, 0.8);
+}
+
+.timeline-list li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+}
+.mr-2 { margin-right: 0.5rem; }
