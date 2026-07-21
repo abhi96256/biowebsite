@@ -3,9 +3,7 @@ import { useContent } from '../context/ContentContext';
 import './Hero.css';
 
 const Hero = () => {
-    const { getContent, loading } = useContent();
-
-    if (loading) return <div className="hero-v2" id="home" />;
+    const { getContent } = useContent();
 
     const photoSrc = getContent('hero', 'main_image') || '/bg.png';
 

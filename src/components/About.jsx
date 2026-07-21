@@ -9,6 +9,7 @@ const About = () => {
         return <section className="about-section bg-surface">Loading...</section>;
     }
 
+
     return (
         <section className="about-section bg-surface">
             <div className="max-w-container-max px-margin-mobile md-px-margin-desktop about-grid">

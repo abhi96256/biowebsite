@@ -51,26 +51,117 @@
 }
 
 .nav-link {
-    color: #e2e8f0;
+    position: relative;
+    color: rgba(255, 255, 255, 0.65);
     text-transform: uppercase;
-    transition: all 0.3s;
-    padding-bottom: 0.25rem;
-    border-bottom: 2px solid transparent;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     font-size: 10px;
+    letter-spacing: 0.15em;
     white-space: nowrap;
+    padding: 4px 2px 6px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    transition: color 0.3s ease;
+    overflow: hidden;
 }
 
-.nav-link:hover {
-    color: #ffffff;
-    border-bottom-color: #ffffff;
+/* Animated underline — two halves slide from center */
+.nav-link::before,
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    height: 1.5px;
+    width: 50%;
+    background: #e9c349;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.nav-link::before {
+    left: 50%;
+    transform: scaleX(0);
+    transform-origin: left;
+}
+
+.nav-link::after {
+    right: 50%;
+    transform: scaleX(0);
+    transform-origin: right;
+}
+
+.nav-link:hover,
 .nav-link.active {
     color: #ffffff;
-    border-bottom-color: #ffffff;
-    font-weight: bold;
 }
+
+.nav-link:hover::before,
+.nav-link:hover::after,
+.nav-link.active::before,
+.nav-link.active::after {
+    transform: scaleX(1);
+}
+
+/* Active dot indicator above the link */
+.nav-link.active {
+    color: #e9c349;
+}
+
+/* ── Contact Button — premium shimmer fill ── */
+.navbar-btn {
+    position: relative;
+    background: transparent;
+    color: #ffffff;
+    padding: 0.45rem 1.4rem;
+    border: 1.5px solid rgba(233, 195, 73, 0.7);
+    cursor: pointer;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    white-space: nowrap;
+    border-radius: 3px;
+    overflow: hidden;
+    transition: color 0.35s ease, border-color 0.35s ease;
+    z-index: 0;
+}
+
+/* Fill sweep layer */
+.navbar-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #e9c349, #f5d87a, #e9c349);
+    background-size: 200% 100%;
+    transform: translateX(-101%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
+}
+
+/* Shimmer sweep on top of fill */
+.navbar-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.4) 50%, transparent 70%);
+    transform: skewX(-20deg);
+    transition: left 0.5s ease 0.1s;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.navbar-btn:hover {
+    color: #050e1a;
+    border-color: #e9c349;
+}
+
+.navbar-btn:hover::before {
+    transform: translateX(0);
+}
+
+.navbar-btn:hover::after {
+    left: 130%;
+}
+
+
 
 /* ── Right side group ── */
 .navbar-right {
@@ -78,23 +169,6 @@
     align-items: center;
     gap: 12px;
     flex-shrink: 0;
-}
-
-.navbar-btn {
-    background-color: transparent;
-    color: #ffffff;
-    padding: 0.5rem 1.2rem;
-    border: 1px solid #ffffff;
-    cursor: pointer;
-    transition: all 0.3s;
-    backdrop-filter: blur(4px);
-    font-size: 10px;
-    white-space: nowrap;
-}
-
-.navbar-btn:hover {
-    background-color: #ffffff;
-    color: #000000;
 }
 
 /* ── Hamburger Button ── */

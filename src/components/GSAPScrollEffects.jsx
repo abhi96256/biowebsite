@@ -15,91 +15,11 @@ const GSAPScrollEffects = () => {
 
         let timeout;
 
-        const checkDOM = () => {
-            // Try new hero-v2 title first, then fallback to old hero-title
-            const heroTitle = document.querySelector('.hero-v2__title') || document.querySelector('.hero-title');
-            if (!heroTitle) {
-                timeout = setTimeout(checkDOM, 100);
-                return;
-            }
+        // Wait 800ms — gives ContentContext API fetch + React re-renders time to complete
+        // so all section h2/p elements are in the DOM before GSAP runs
+        const initScrollAnimations = () => {
 
-            // --- 1. HERO ANIMATION (Similar to initIntro) ---
-            const heroTimeline = gsap.timeline({ delay: 0.3 });
-            
-            // Split hero title for animation
-            const textSplit = new SplitType(heroTitle, { types: 'lines,words', lineClass: 'split-line' });
-                
-                // Add overflow hidden to lines to create the "reveal" effect from Codepen
-                const lines = document.querySelectorAll('.split-line');
-                lines.forEach(line => {
-                    const wrapper = document.createElement('div');
-                    wrapper.style.overflow = 'hidden';
-                    wrapper.style.display = 'inline-block';
-                    // wrap word in wrapper
-                    line.parentNode.insertBefore(wrapper, line);
-                    wrapper.appendChild(line);
-                });
-
-                heroTimeline.from(textSplit.words, {
-                    y: 100,
-                    opacity: 0,
-                    duration: 1.2,
-                    ease: 'power4.out',
-                    stagger: 0.05
-                });
-
-            // Hero left-side texts and buttons (new V2 selectors + old fallback)
-            const heroTexts = document.querySelectorAll(
-                '.hero-v2__left p, .hero-v2__left blockquote, .hero-v2__badge, .hero-v2__btns, .hero-text-col p, .hero-btn-group'
-            );
-            if (heroTexts.length) {
-                heroTimeline.from(heroTexts, {
-                    x: -50,
-                    opacity: 0,
-                    duration: 1.5,
-                    ease: 'power4.out',
-                    stagger: 0.1
-                }, "-=0.8");
-            }
-
-            // Hero photo (new V2 + old fallback)
-            const heroImages = document.querySelectorAll('.hero-v2__photo, .hero-img-col img');
-            if (heroImages.length) {
-                heroTimeline.from(heroImages, {
-                    y: 80,
-                    opacity: 0,
-                    duration: 1.5,
-                    ease: 'power3.out',
-                    stagger: 0.2
-                }, "-=1.2");
-            }
-
-            // Hero right stats
-            const heroStats = document.querySelectorAll('.hero-v2__stat');
-            if (heroStats.length) {
-                heroTimeline.from(heroStats, {
-                    x: 60,
-                    opacity: 0,
-                    duration: 1,
-                    ease: 'power3.out',
-                    stagger: 0.12
-                }, "-=1.2");
-            }
-
-            // Bottom strip tags
-            const stripTags = document.querySelectorAll('.hero-v2__strip-tag');
-            if (stripTags.length) {
-                heroTimeline.from(stripTags, {
-                    opacity: 0,
-                    y: 20,
-                    duration: 0.6,
-                    ease: 'power2.out',
-                    stagger: 0.08
-                }, "-=0.6");
-            }
-
-
-            // --- 2. SCROLL ANIMATIONS FOR SECTIONS (Similar to initSlides) ---
+            // --- 2. SCROLL ANIMATIONS FOR SECTIONS ---
             const sections = document.querySelectorAll('section');
             
             sections.forEach(section => {
@@ -237,12 +157,12 @@ const GSAPScrollEffects = () => {
 
         };
 
-        checkDOM();
+        timeout = setTimeout(initScrollAnimations, 800);
 
         return () => {
             clearTimeout(timeout);
             ScrollTrigger.getAll().forEach(t => t.kill());
-            SplitType.revert('.hero-title, h2, h3');
+            SplitType.revert('h2, h3');
         };
     }, [location]); // Re-run when route changes
 
