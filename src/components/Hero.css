@@ -244,7 +244,7 @@
 
 .hero-v2__photo {
     width: 100%;
-    height: 520px;
+    height: 590px;
     object-fit: cover;
     object-position: top center;
     display: block;
@@ -253,7 +253,7 @@
     /* Fade out bottom — blends into background */
     -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
     mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
-   
+
 }
 
 /* Floating IAS batch badge */
