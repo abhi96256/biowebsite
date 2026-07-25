@@ -405,8 +405,9 @@
     .hero-v2__layout {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto auto;
-        padding: 100px 24px 40px;
+        padding: 80px 20px 20px;
         text-align: center;
+        gap: 20px;
     }
 
     .hero-v2__left {
@@ -421,15 +422,28 @@
     .hero-v2__right {
         order: 3;
         flex-direction: row;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
+        flex-wrap: nowrap;
+        align-items: flex-start;
+        justify-content: space-between;
         text-align: center;
+        gap: 8px;
+        width: 100%;
     }
 
     .hero-v2__stat {
         align-items: center;
-        min-width: 100px;
+        min-width: unset;
+        flex: 1;
+        gap: 2px;
+    }
+
+    .hero-v2__stat-num {
+        font-size: clamp(16px, 4.5vw, 24px);
+    }
+
+    .hero-v2__stat-label {
+        font-size: 8px;
+        line-height: 1.2;
     }
 
     .hero-v2__divider {
@@ -441,16 +455,17 @@
     }
 
     .hero-v2__photo-wrap {
-        width: 240px;
+        width: 200px;
     }
 
     .hero-v2__photo {
-        height: 340px;
+        height: 280px;
     }
 
     .hero-v2__photo-badge {
-        right: -12px;
-        bottom: 60px;
+        right: -20px;
+        bottom: 50px;
+        transform: scale(0.85);
     }
 
     .hero-v2__btns {
@@ -461,7 +476,7 @@
 
     .hero-v2__name-top,
     .hero-v2__name-bottom {
-        font-size: clamp(60px, 18vw, 110px);
+        font-size: clamp(50px, 15vw, 90px);
     }
 
     .hero-v2__bottom-strip {

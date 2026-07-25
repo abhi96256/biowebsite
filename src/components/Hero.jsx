@@ -33,7 +33,7 @@ const Hero = () => {
                         Honoring 40 Years of Service
                     </p>
                     <h1 className="hero-v2__title">
-                        Shri Rajesh<br />Kumar
+                        Shri Rajesh Kumar
                         <span className="hero-v2__title-sub"> IAS (Retd.)</span>
                     </h1>
                     <p className="hero-v2__designation font-body-md">

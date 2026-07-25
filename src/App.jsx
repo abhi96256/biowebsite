@@ -2,7 +2,6 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import Stats from './components/Stats';
 import About from './components/About';
 import Quotes from './components/Quotes';
 import Timeline from './components/Timeline';
@@ -28,7 +27,6 @@ function App() {
           <div className="app-container selection-theme">
             <Navbar />
             <Hero />
-            <Stats />
             <About />
             <Quotes />
             <Timeline />
