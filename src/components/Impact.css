@@ -1,6 +1,22 @@
 .impact-section {
     padding: var(--section-gap) 0;
     background-color: var(--surface);
+    background-image: url('/patriotic_bg.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+    z-index: 1;
+}
+
+.impact-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+
+
+    /* Less blur to show the background */
+    z-index: -1;
 }
 
 .impact-header-row {
@@ -18,11 +34,25 @@
     }
 }
 
-.tracking-widest { letter-spacing: 0.2em; }
-.mt-4 { margin-top: 1rem; }
-.mb-2 { margin-bottom: 0.5rem; }
-.mb-4 { margin-bottom: 1rem; }
-.block { display: block; }
+.tracking-widest {
+    letter-spacing: 0.2em;
+}
+
+.mt-4 {
+    margin-top: 1rem;
+}
+
+.mb-2 {
+    margin-bottom: 0.5rem;
+}
+
+.mb-4 {
+    margin-bottom: 1rem;
+}
+
+.block {
+    display: block;
+}
 
 .header-line {
     display: none;
@@ -45,11 +75,15 @@
 }
 
 @media (min-width: 640px) {
-    .impact-grid { grid-template-columns: repeat(2, 1fr); }
+    .impact-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (min-width: 1024px) {
-    .impact-grid { grid-template-columns: repeat(4, 1fr); }
+    .impact-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
 .impact-card {
@@ -65,7 +99,7 @@
 
 .impact-card:hover {
     border-color: var(--secondary);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06), 0 5px 15px rgba(0,0,0,0.03);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06), 0 5px 15px rgba(0, 0, 0, 0.03);
     transform: translateY(-8px);
 }
 
@@ -82,7 +116,9 @@
     color: var(--secondary);
 }
 
-.title-size { font-size: 20px; }
+.title-size {
+    font-size: 20px;
+}
 
 .impact-stat-box {
     margin-top: auto;
@@ -95,4 +131,7 @@
     border-top-color: var(--secondary);
 }
 
-.text-lg { font-size: 1.125rem; font-weight: 600; }
+.text-lg {
+    font-size: 1.125rem;
+    font-weight: 600;
+}
