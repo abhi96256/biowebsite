@@ -495,8 +495,22 @@
     }
 
     .hero-v2__btns {
+        display: flex !important;
+        flex-direction: row !important;
         align-items: center;
-        flex-direction: row;
+        justify-content: center;
+        gap: 6px;
+        flex-wrap: nowrap;
+        width: 100%;
+    }
+
+    .hero-v2__btn {
+        padding: 6px 12px;
+        font-size: 8px;
+        white-space: nowrap;
+        flex: 1 1 auto;
+        min-width: 0;
+        text-align: center;
         justify-content: center;
     }
 
