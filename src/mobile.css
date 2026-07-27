@@ -364,9 +364,12 @@
     }
 
     .hero-v2__photo-badge {
-        right: -8px !important;
-        bottom: 50px !important;
+        left: 50% !important;
+        right: auto !important;
+        bottom: -15px !important;
+        transform: translateX(-50%) scale(0.85) !important;
         padding: 10px 12px !important;
+        width: max-content;
     }
 
     .hero-v2__btns {
