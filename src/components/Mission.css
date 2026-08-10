@@ -1,6 +1,5 @@
 /* Premium Mission Section */
 .mission-premium-section {
-
     background: var(--primary);
     /* Dark blue */
     position: relative;
@@ -8,6 +7,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: var(--section-gap) 0;
+    box-sizing: border-box;
 }
 
 .mission-glow-bg {

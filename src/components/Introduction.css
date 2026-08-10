@@ -1,11 +1,13 @@
 .introduction-section {
-    min-height: 100vh;
+    min-height: auto;
     background: var(--surface);
     position: relative;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: var(--section-gap) 0;
+    box-sizing: border-box;
 }
 
 /* Background elegant patterns */
@@ -232,8 +234,13 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+    .introduction-section {
+        padding: calc(var(--section-gap) * 0.75) 0;
+    }
+
     .intro-ultimate-card {
-        padding: 4rem 2rem;
+        padding: 3.25rem 1.5rem;
+        margin: 0 auto;
     }
 
     .intro-headline {

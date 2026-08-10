@@ -266,11 +266,15 @@
 @media (max-width: 640px) {
   .footer-body {
     grid-template-columns: 1fr;
-    padding-top: 40px;
-    padding-bottom: 36px;
-    gap: 28px;
+    padding-top: 32px;
+    padding-bottom: 28px;
+    gap: 22px;
     text-align: center;
     justify-items: center;
+  }
+
+  .footer-top-bar {
+    padding: 14px 0;
   }
 
   .footer-top-inner {
@@ -284,30 +288,63 @@
   .footer-brand-col {
     align-items: center;
     text-align: center;
+    gap: 8px;
+  }
+
+  .footer-brand-name {
+    font-size: 24px;
   }
 
   .footer-brand-desc {
-    max-width: 28ch;
+    max-width: 30ch;
     margin: 0 auto;
+    font-size: 13px;
+    line-height: 1.55;
   }
 
   .footer-links-col {
     align-items: center;
     width: 100%;
     text-align: center;
+    gap: 12px;
+  }
+
+  /* Duplicate Useful Links col (same as Quick Links) — hide on mobile */
+  .footer-links-col:nth-child(4) {
+    display: none;
   }
 
   .footer-col-heading {
     width: 100%;
     text-align: center;
+    padding-bottom: 8px;
+    margin: 0;
   }
 
+  /* Links in compact wrap rows — reduces footer height */
   .footer-link-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
+    gap: 8px 6px;
+    width: 100%;
+  }
+
+  .footer-link-list li {
+    flex: 0 0 auto;
   }
 
   .footer-link {
     justify-content: center;
+    padding: 6px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.03);
+    font-size: 12px;
+    line-height: 1.2;
+    white-space: nowrap;
   }
 
   .footer-link-arrow {
@@ -318,7 +355,8 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 14px;
+    gap: 12px;
+    padding: 16px 0 24px;
   }
 
   .footer-bottom-icons {
