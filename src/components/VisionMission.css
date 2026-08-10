@@ -1,0 +1,379 @@
+.vision-mission-section {
+    padding: var(--section-gap) 0;
+    background:
+        radial-gradient(ellipse 50% 40% at 15% 20%, rgba(233, 195, 73, 0.1), transparent 55%),
+        radial-gradient(ellipse 45% 35% at 85% 80%, rgba(74, 4, 4, 0.05), transparent 50%),
+        linear-gradient(180deg, #f3f3f3 0%, #f9f9f9 50%, #f0ece8 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.vision-mission-section::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    right: -5%;
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(circle, rgba(233, 195, 73, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.vm-header {
+    text-align: center;
+    margin-bottom: 3.25rem;
+    position: relative;
+    z-index: 1;
+}
+
+.vm-label {
+    display: block;
+    margin-bottom: 0.75rem;
+    color: var(--secondary);
+    font-size: 0.8rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.vm-headline {
+    font-size: clamp(32px, 4.5vw, 46px);
+    line-height: 1.15;
+    font-family: var(--font-playfair);
+    color: var(--primary);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+}
+
+ 
+
+.vision-mission-grid {
+    display: grid;
+    grid-template-columns: 0.92fr 1.08fr;
+    gap: 1.35rem;
+    max-width: 1080px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    align-items: stretch;
+}
+
+/* Shared card tops */
+.vm-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.vm-card-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--secondary-fixed-dim);
+    font-weight: 600;
+}
+
+.vm-card-label--dark {
+    color: var(--secondary);
+}
+
+.vm-card-index {
+    font-family: var(--font-playfair);
+    font-size: 0.85rem;
+    color: rgba(233, 195, 73, 0.55);
+    letter-spacing: 0.08em;
+}
+
+.vm-card-index--dark {
+    color: rgba(115, 92, 0, 0.4);
+}
+
+/* Vision — dark editorial panel */
+.vision-card {
+    position: relative;
+    border-radius: 20px;
+    padding: 1px;
+    background:
+        linear-gradient(
+            150deg,
+            rgba(233, 195, 73, 0.7) 0%,
+            rgba(255, 255, 255, 0.12) 40%,
+            rgba(233, 195, 73, 0.3) 100%
+        );
+    box-shadow:
+        0 12px 40px rgba(33, 0, 0, 0.18),
+        0 0 0 1px rgba(233, 195, 73, 0.08);
+    overflow: hidden;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.5s ease;
+}
+
+.vision-card:hover {
+    transform: translateY(-6px);
+    box-shadow:
+        0 20px 48px rgba(33, 0, 0, 0.26),
+        0 0 32px rgba(233, 195, 73, 0.14);
+}
+
+.vision-card-glow {
+    position: absolute;
+    inset: -20% -10% auto;
+    height: 60%;
+    background: radial-gradient(ellipse at 30% 0%, rgba(233, 195, 73, 0.25), transparent 65%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.vision-card-inner {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    min-height: 420px;
+    padding: 2rem 1.85rem 1.85rem;
+    border-radius: 19px;
+    background:
+        radial-gradient(ellipse 80% 50% at 100% 100%, rgba(233, 195, 73, 0.12), transparent 50%),
+        linear-gradient(160deg, #3a0a0a 0%, var(--primary) 55%, #120000 100%);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.vision-quote-mark {
+    font-family: var(--font-playfair);
+    font-size: 5.5rem;
+    line-height: 0.6;
+    color: rgba(233, 195, 73, 0.28);
+    margin-bottom: 0.75rem;
+    user-select: none;
+    pointer-events: none;
+}
+
+.vision-statement {
+    font-family: var(--font-playfair);
+    font-size: clamp(1.35rem, 2.4vw, 1.7rem);
+    line-height: 1.45;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: -0.01em;
+    position: relative;
+    z-index: 2;
+    flex: 1;
+}
+
+.vision-statement::after {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 2px;
+    margin-top: 1.5rem;
+    background: linear-gradient(90deg, var(--secondary-fixed-dim), transparent);
+}
+
+.vision-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.vision-footer-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(233, 195, 73, 0.35), transparent);
+}
+
+.vision-footer-text {
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(233, 195, 73, 0.7);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Mission — light glass panel with tiles */
+.mission-card {
+    position: relative;
+    border-radius: 20px;
+    padding: 1px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(233, 195, 73, 0.5) 0%,
+            rgba(255, 255, 255, 0.4) 40%,
+            rgba(233, 195, 73, 0.2) 100%
+        );
+    box-shadow:
+        0 10px 32px rgba(33, 0, 0, 0.07),
+        0 1px 2px rgba(33, 0, 0, 0.04);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.5s ease;
+}
+
+.mission-card:hover {
+    transform: translateY(-6px);
+    box-shadow:
+        0 18px 44px rgba(33, 0, 0, 0.1),
+        0 0 28px rgba(233, 195, 73, 0.1);
+}
+
+.mission-card-inner {
+    height: 100%;
+    padding: 1.75rem 1.4rem 1.4rem;
+    border-radius: 19px;
+    background: linear-gradient(165deg, rgba(255, 255, 255, 0.95) 0%, rgba(249, 249, 249, 0.9) 100%);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+.mission-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.55rem;
+}
+
+.mission-tile {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 0.65rem;
+    row-gap: 0.15rem;
+    align-items: start;
+    padding: 0.75rem 0.7rem;
+    border-radius: 12px;
+    background: rgba(33, 0, 0, 0.02);
+    border: 1px solid rgba(233, 195, 73, 0.12);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mission-tile:nth-child(9) {
+    grid-column: 1 / -1;
+}
+
+.mission-tile:hover {
+    background: rgba(233, 195, 73, 0.08);
+    border-color: rgba(233, 195, 73, 0.35);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(33, 0, 0, 0.06);
+}
+
+.mission-tile-num {
+    position: absolute;
+    top: 0.35rem;
+    right: 0.5rem;
+    font-family: var(--font-playfair);
+    font-size: 0.7rem;
+    color: rgba(233, 195, 73, 0.35);
+    letter-spacing: 0.04em;
+    pointer-events: none;
+}
+
+.mission-tile-icon {
+    grid-row: 1 / 3;
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(233, 195, 73, 0.1);
+    border: 1px solid rgba(233, 195, 73, 0.22);
+    color: var(--secondary);
+    transition: all 0.35s ease;
+}
+
+.mission-tile:hover .mission-tile-icon {
+    background: linear-gradient(145deg, var(--secondary-fixed-dim), #c9a42e);
+    color: var(--primary);
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(233, 195, 73, 0.28);
+}
+
+.mission-tile-icon .material-symbols-outlined {
+    font-size: 18px;
+    font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+}
+
+.mission-tile:hover .mission-tile-icon .material-symbols-outlined {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.mission-tile-text {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    align-self: center;
+    font-size: 0.82rem;
+    line-height: 1.35;
+    color: var(--on-surface-variant);
+    font-family: var(--font-inter);
+    padding-right: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.mission-tile:hover .mission-tile-text {
+    color: var(--primary);
+}
+
+@media (max-width: 900px) {
+    .vision-mission-grid {
+        grid-template-columns: 1fr;
+        max-width: 520px;
+        gap: 1.15rem;
+    }
+
+    .vision-card-inner {
+        min-height: 0;
+        padding: 1.75rem 1.5rem 1.5rem;
+    }
+
+    .vision-quote-mark {
+        font-size: 4.25rem;
+    }
+
+    .vision-statement {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 520px) {
+    .mission-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mission-tile:nth-child(9) {
+        grid-column: auto;
+    }
+
+    .vm-header {
+        margin-bottom: 2.5rem;
+    }
+
+    .mission-card-inner {
+        padding: 1.4rem 1rem 1.1rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .vision-card,
+    .vision-card:hover,
+    .mission-card,
+    .mission-card:hover,
+    .mission-tile,
+    .mission-tile:hover {
+        transition: none;
+        transform: none;
+    }
+}

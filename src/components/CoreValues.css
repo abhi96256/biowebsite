@@ -1,0 +1,332 @@
+/* Premium Core Values Section */
+.core-values-premium-section {
+    background-image: url('/patriotic_bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    overflow: hidden;
+    padding: var(--section-gap) 0;
+}
+
+.core-values-premium-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 50% 40% at 20% 30%, rgba(233, 195, 73, 0.12), transparent 60%),
+        radial-gradient(ellipse 45% 35% at 80% 70%, rgba(74, 4, 4, 0.06), transparent 55%),
+        linear-gradient(180deg, rgba(249, 249, 249, 0.35) 0%, rgba(249, 249, 249, 0.15) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.cv-header-elegant {
+    text-align: center;
+    margin-bottom: 3.25rem;
+    position: relative;
+}
+
+.cv-label-caps {
+    display: block;
+    margin-bottom: 0.85rem;
+    color: var(--secondary);
+    font-size: 0.8rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.cv-headline {
+    font-size: clamp(36px, 5vw, 48px);
+    line-height: 1.15;
+    font-family: var(--font-playfair);
+    color: var(--primary);
+    font-weight: 600;
+    margin-bottom: 1.75rem;
+    letter-spacing: -0.01em;
+}
+
+
+.core-values-premium-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.15rem;
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+/* Premium Card shell — gold hairline frame */
+.cv-premium-card {
+    position: relative;
+    border-radius: 16px;
+    padding: 1px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(233, 195, 73, 0.55) 0%,
+            rgba(255, 255, 255, 0.35) 35%,
+            rgba(233, 195, 73, 0.18) 65%,
+            rgba(115, 92, 0, 0.35) 100%
+        );
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        background 0.45s ease;
+    box-shadow:
+        0 1px 2px rgba(33, 0, 0, 0.04),
+        0 8px 22px rgba(33, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.cv-premium-card:hover {
+    transform: translateY(-5px);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(233, 195, 73, 0.95) 0%,
+            rgba(254, 214, 91, 0.7) 40%,
+            rgba(233, 195, 73, 0.45) 70%,
+            rgba(115, 92, 0, 0.65) 100%
+        );
+    box-shadow:
+        0 6px 12px rgba(33, 0, 0, 0.05),
+        0 18px 36px rgba(33, 0, 0, 0.1),
+        0 0 28px rgba(233, 195, 73, 0.14);
+}
+
+.cv-glow-bg {
+    position: absolute;
+    inset: -40% -20% auto;
+    height: 70%;
+    background: radial-gradient(ellipse at 50% 0%, rgba(233, 195, 73, 0.22), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.55s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.cv-premium-card:hover .cv-glow-bg {
+    opacity: 1;
+}
+
+.cv-card-inner {
+    /* Solid fill — backdrop-filter blurs text on many screens */
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 1.65rem 1.25rem 1.5rem;
+    height: 100%;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background 0.45s ease;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+.cv-premium-card:hover .cv-card-inner {
+    background: #fffdf8;
+}
+
+/* Soft top accent bar */
+.cv-card-accent {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 36px;
+    height: 2px;
+    border-radius: 0 0 3px 3px;
+    background: linear-gradient(90deg, transparent, var(--secondary-fixed-dim), transparent);
+    opacity: 0.7;
+    transition: width 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+}
+
+.cv-premium-card:hover .cv-card-accent {
+    width: 68%;
+    opacity: 1;
+}
+
+/* Watermark Number */
+.cv-number-watermark {
+    position: absolute;
+    top: 0.15rem;
+    right: 0.7rem;
+    font-size: 3.25rem;
+    font-family: var(--font-playfair);
+    font-weight: 700;
+    color: rgba(233, 195, 73, 0.14);
+    line-height: 1;
+    z-index: 0;
+    pointer-events: none;
+    user-select: none;
+    transition: color 0.45s ease;
+}
+
+.cv-premium-card:hover .cv-number-watermark {
+    color: rgba(233, 195, 73, 0.22);
+}
+
+/* Icon — compact double ring */
+.cv-icon-wrapper {
+    position: relative;
+    z-index: 2;
+    width: 52px;
+    height: 52px;
+    margin: 0.35rem auto 1rem;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.95), rgba(255, 224, 136, 0.25) 55%, rgba(249, 249, 249, 0.9));
+    border: 1px solid rgba(233, 195, 73, 0.4);
+    box-shadow:
+        0 0 0 3px rgba(233, 195, 73, 0.07),
+        0 4px 12px rgba(115, 92, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--secondary);
+    transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cv-premium-card:hover .cv-icon-wrapper {
+    background: linear-gradient(145deg, var(--secondary-fixed-dim), #c9a42e);
+    color: var(--primary);
+    border-color: transparent;
+    box-shadow:
+        0 0 0 4px rgba(233, 195, 73, 0.16),
+        0 8px 18px rgba(115, 92, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.45);
+    transform: translateY(-1px) scale(1.05);
+}
+
+.cv-icon {
+    font-size: 22px;
+    font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    transition: font-variation-settings 0.35s ease;
+}
+
+.cv-premium-card:hover .cv-icon {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Typography */
+.cv-title {
+    position: relative;
+    z-index: 2;
+    font-size: 1.2rem;
+    font-family: var(--font-playfair);
+    font-weight: 700;
+    color: #210000;
+    margin-bottom: 0.45rem;
+    letter-spacing: -0.01em;
+    transition: color 0.4s ease;
+}
+
+.cv-title::after {
+    content: '';
+    display: block;
+    width: 22px;
+    height: 1px;
+    margin: 0.5rem auto 0;
+    background: linear-gradient(90deg, transparent, var(--secondary-fixed-dim), transparent);
+    transition: width 0.4s ease, opacity 0.4s ease;
+    opacity: 0.6;
+}
+
+.cv-premium-card:hover .cv-title::after {
+    width: 40px;
+    opacity: 1;
+}
+
+.cv-description {
+    position: relative;
+    z-index: 2;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    font-weight: 400;
+    color: #4a3533;
+    font-family: var(--font-inter);
+    max-width: 28ch;
+    margin: 0 auto;
+    transition: color 0.4s ease;
+}
+
+.cv-premium-card:hover .cv-description {
+    color: #210000;
+}
+
+@media (max-width: 1024px) {
+    .core-values-premium-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        max-width: 640px;
+    }
+}
+
+@media (max-width: 640px) {
+    .core-values-premium-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.7rem;
+        max-width: 100%;
+    }
+
+    .cv-card-inner {
+        padding: 1.15rem 0.7rem 1.1rem;
+    }
+
+    .cv-header-elegant {
+        margin-bottom: 2.25rem;
+    }
+
+    .cv-icon-wrapper {
+        width: 42px;
+        height: 42px;
+        margin: 0.2rem auto 0.75rem;
+        box-shadow:
+            0 0 0 3px rgba(233, 195, 73, 0.07),
+            0 3px 10px rgba(115, 92, 0, 0.08);
+    }
+
+    .cv-icon {
+        font-size: 18px;
+    }
+
+    .cv-number-watermark {
+        font-size: 2.35rem;
+        top: 0.1rem;
+        right: 0.4rem;
+    }
+
+    .cv-title {
+        font-size: 1rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .cv-title::after {
+        margin-top: 0.35rem;
+        width: 18px;
+    }
+
+    .cv-description {
+        font-size: 0.75rem;
+        line-height: 1.45;
+        max-width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cv-premium-card,
+    .cv-premium-card:hover,
+    .cv-icon-wrapper,
+    .cv-card-accent,
+    .cv-title::after,
+    .cv-glow-bg {
+        transition: none;
+        transform: none;
+    }
+}

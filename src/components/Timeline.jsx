@@ -19,7 +19,7 @@ const Timeline = () => {
         if (!isMobile) return;
         
         const interval = setInterval(() => {
-            setCurrentIndex((prev) => (prev + 1) % 3);
+            setCurrentIndex((prev) => (prev + 1) % 4);
         }, 4000);
         
         return () => clearInterval(interval);
@@ -27,33 +27,46 @@ const Timeline = () => {
 
     const timelineData = [
         {
-            year: '2005 - 2008',
-            title: 'District Magistrate',
-            subtitle: 'Gurugram District',
+            year: 'Early Career',
+            title: 'Early Career',
+            subtitle: 'Developed expertise in public administration, policy implementation, and governance.',
             items: [
-                'Built 400 rural schools',
-                'Reduced local crime rate by 35%',
-                'Launched India\'s first digital land records initiative'
+                'Built strong foundation in public administration',
+                'Learned policy implementation strategies',
+                'Developed governance frameworks'
             ]
         },
         {
-            year: '2012 - 2015',
-            title: 'Secretary, Health',
-            subtitle: 'Dept. of Health & Family Welfare',
+            year: 'Administrative Leadership',
+            title: 'Administrative Leadership',
+            subtitle: 'Led district-level administration while focusing on infrastructure, education, healthcare, and citizen welfare.',
             items: [
-                'Established 12 new tertiary care hospitals',
-                'Achieved 100% infant immunization coverage',
-                'Pioneered the "Health-At-Door" mobile clinic service'
+                'Led district-level administration',
+                'Focused on infrastructure development',
+                'Improved education and healthcare services',
+                'Enhanced citizen welfare programs'
             ]
         },
         {
-            year: '2019 - 2023',
-            title: 'Chief Secretary',
-            subtitle: 'Government of Haryana',
+            year: 'Innovation',
+            title: 'Innovation',
+            subtitle: 'Introduced technology-driven governance initiatives to improve service delivery.',
             items: [
-                'Oversaw the G20 working group transitions',
-                'Implemented the \'State Excellence\' 5-year plan',
-                'Managed the state\'s largest-ever infrastructure budget'
+                'Introduced technology-driven governance',
+                'Improved service delivery systems',
+                'Implemented digital solutions',
+                'Enhanced administrative efficiency'
+            ]
+        },
+        {
+            year: 'Community Engagement',
+            title: 'Community Engagement',
+            subtitle: 'Worked closely with local communities to understand their challenges and develop practical solutions.',
+            items: [
+                'Worked closely with local communities',
+                'Understood community challenges',
+                'Developed practical solutions',
+                'Built strong community relationships'
             ]
         }
     ];

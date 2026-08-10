@@ -1,12 +1,8 @@
 import React from 'react';
-import { useContent } from '../context/ContentContext';
+import StrokeText from './StrokeText';
 import './Hero.css';
 
 const Hero = () => {
-    const { getContent } = useContent();
-
-    const photoSrc = getContent('hero', 'main_image') || '/bg.png';
-
     return (
         <header className="hero-v2" id="home">
 
@@ -19,8 +15,8 @@ const Hero = () => {
 
             {/* ── Big name text BEHIND photo ── */}
             <div className="hero-v2__name-bg" aria-hidden="true">
-                <span className="hero-v2__name-top">RAJESH</span>
-                <span className="hero-v2__name-bottom">KUMAR</span>
+                <span className="hero-v2__name-top">SURESH</span>
+                <span className="hero-v2__name-bottom">IAS</span>
             </div>
 
             {/* ── Main layout ── */}
@@ -28,28 +24,41 @@ const Hero = () => {
 
                 {/* LEFT column */}
                 <div className="hero-v2__left">
-                    <p className="hero-v2__badge font-label-caps">
-                        <span className="hero-v2__badge-dot" />
-                        Honoring 40 Years of Service
-                    </p>
                     <h1 className="hero-v2__title">
-                        Shri Rajesh Kumar
-                        <span className="hero-v2__title-sub"> IAS (Retd.)</span>
+                        <StrokeText
+                            text="SURESH IAS"
+                            strokeColor="#e9c349"
+                            fillColor="#ffffff"
+                            strokeWidth={2}
+                            drawDuration={2}
+                            fillDelay={0.3}
+                            stagger={0.08}
+                            ease="power2.out"
+                            trigger="mount"
+                            fillMode="wipe"
+                            fontSize={72}
+                            fontWeight={700}
+                            letterSpacing={2}
+                            reverse={false}
+                        />
                     </h1>
-                    <p className="hero-v2__designation font-body-md">
-                        Former Chief Secretary<br />Government of Haryana
+                    <p className="hero-v2__tagline font-body-md">
+                        Transforming Governance Through Vision, Integrity & Service
+                    </p>
+                    <p className="hero-v2__description font-body-md">
+                        Dedicated to building transparent governance, empowering communities, and creating sustainable development through responsible public administration.
                     </p>
 
-                    <blockquote className="hero-v2__quote">
-                        "Governance is not a throne to sit on&mdash;it is a field in which to toil."
-                    </blockquote>
+                    <div className="hero-v2__keywords">
+                        <span className="hero-v2__keyword font-label-caps">Leadership</span>
+                        <span className="hero-v2__keyword font-label-caps">Innovation</span>
+                        <span className="hero-v2__keyword font-label-caps">Accountability</span>
+                        <span className="hero-v2__keyword font-label-caps">Public Service</span>
+                    </div>
 
                     <div className="hero-v2__btns">
                         <a href="#journey" className="hero-v2__btn hero-v2__btn--primary font-label-caps">
-                            Explore Journey
-                        </a>
-                        <a href="#legacy" className="hero-v2__btn hero-v2__btn--outline font-label-caps">
-                            View Legacy
+                            Explore My Journey
                         </a>
                     </div>
                 </div>
@@ -59,14 +68,14 @@ const Hero = () => {
                     <div className="hero-v2__photo-wrap">
                         <div className="hero-v2__photo-glow" />
                         <img
-                            src={photoSrc}
-                            alt="Shri Rajesh Kumar IAS"
+                            src="/bg.png"
+                            alt="Suresh IAS"
                             className="hero-v2__photo"
                         />
                         {/* floating badge */}
                         <div className="hero-v2__photo-badge">
                             <span className="hero-v2__photo-badge-num">IAS</span>
-                            <span className="hero-v2__photo-badge-label font-label-caps">1984 Batch</span>
+                            <span className="hero-v2__photo-badge-label font-label-caps">Officer</span>
                         </div>
                     </div>
                 </div>
@@ -74,23 +83,23 @@ const Hero = () => {
                 {/* RIGHT column — stats */}
                 <div className="hero-v2__right">
                     <div className="hero-v2__stat">
-                        <span className="hero-v2__stat-num">40+</span>
-                        <span className="hero-v2__stat-label font-label-caps">Years of<br />Public Service</span>
+                        <span className="hero-v2__stat-num">10+</span>
+                        <span className="hero-v2__stat-label font-label-caps">Years in<br />Public Service</span>
                     </div>
                     <div className="hero-v2__divider" />
                     <div className="hero-v2__stat">
-                        <span className="hero-v2__stat-num">12</span>
-                        <span className="hero-v2__stat-label font-label-caps">Districts<br />Administered</span>
+                        <span className="hero-v2__stat-num">05</span>
+                        <span className="hero-v2__stat-label font-label-caps">Districts<br />Served</span>
                     </div>
                     <div className="hero-v2__divider" />
                     <div className="hero-v2__stat">
-                        <span className="hero-v2__stat-num">8</span>
-                        <span className="hero-v2__stat-label font-label-caps">National<br />Awards</span>
+                        <span className="hero-v2__stat-num">100+</span>
+                        <span className="hero-v2__stat-label font-label-caps">Government<br />Projects Led</span>
                     </div>
                     <div className="hero-v2__divider" />
                     <div className="hero-v2__stat">
-                        <span className="hero-v2__stat-num">3</span>
-                        <span className="hero-v2__stat-label font-label-caps">State<br />Portfolios</span>
+                        <span className="hero-v2__stat-num">50+</span>
+                        <span className="hero-v2__stat-label font-label-caps">Policy<br />Initiatives</span>
                     </div>
 
                     <div className="hero-v2__scroll-hint font-label-caps">
@@ -102,7 +111,7 @@ const Hero = () => {
 
             {/* ── Bottom strip ── */}
             <div className="hero-v2__bottom-strip">
-                {['Haryana Cadre', 'Chief Secretary 2019–2023', 'G20 Sherpa Team', 'Padma Shri Nominee', 'RTI Champion'].map((tag, i) => (
+                {['Citizens Impacted: Millions', 'Awards & Recognition: 20+'].map((tag, i) => (
                     <span key={i} className="hero-v2__strip-tag font-label-caps">{tag}</span>
                 ))}
             </div>

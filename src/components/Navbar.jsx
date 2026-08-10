@@ -8,7 +8,7 @@ const Navbar = () => {
 
     useEffect(() => {
         const handleScroll = () => {
-            const sections = ['home', 'journey', 'impact', 'gallery', 'legacy', 'blog', 'tributes'];
+            const sections = ['home', 'about', 'journey', 'leadership', 'vision-mission', 'initiatives', 'achievements', 'media-gallery', 'testimonials', 'blog', 'faqs', 'contact'];
             let current = 'home';
             sections.forEach(section => {
                 const element = document.getElementById(section);
@@ -36,25 +36,20 @@ const Navbar = () => {
         <>
             <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
                 <div className="navbar-container max-w-container-max px-margin-mobile md-px-margin-desktop">
-                    <span className="navbar-brand font-headline-md tracking-tighter">Rajesh Kumar IAS (Retd.)</span>
-
                     {/* Desktop links */}
                     <div className="navbar-links">
-                        {['home', 'journey', 'impact', 'gallery', 'legacy', 'blog', 'tributes'].map(item => (
+                        {['home', 'about', 'journey', 'leadership', 'vision-mission', 'initiatives', 'achievements', 'media-gallery', 'testimonials', 'blog', 'faqs', 'contact'].map(item => (
                             <a
                                 key={item}
                                 href={`#${item}`}
                                 className={`nav-link font-label-caps ${activeSection === item ? 'active' : ''}`}
                             >
-                                {item.charAt(0).toUpperCase() + item.slice(1)}
+                                {item.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
                             </a>
                         ))}
                     </div>
 
                     <div className="navbar-right">
-                        <button className="navbar-btn font-label-caps tracking-widest uppercase">
-                            Contact
-                        </button>
                         {/* Hamburger */}
                         <button
                             className={`navbar-hamburger ${menuOpen ? 'open' : ''}`}
@@ -80,19 +75,16 @@ const Navbar = () => {
                     </button>
                 </div>
                 <div className="mobile-drawer__inner">
-                    {['home', 'journey', 'impact', 'gallery', 'legacy', 'blog', 'tributes'].map(item => (
+                    {['home', 'about', 'journey', 'leadership', 'vision-mission', 'initiatives', 'achievements', 'media-gallery', 'testimonials', 'blog', 'faqs', 'contact'].map(item => (
                         <a
                             key={item}
                             href={`#${item}`}
                             className={`mobile-nav-link font-label-caps ${activeSection === item ? 'active' : ''}`}
                             onClick={handleNavClick}
                         >
-                            {item.charAt(0).toUpperCase() + item.slice(1)}
+                            {item.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
                         </a>
                     ))}
-                    <a href="#tributes" className="mobile-contact-btn font-label-caps" onClick={handleNavClick}>
-                        Contact
-                    </a>
                 </div>
             </div>
 

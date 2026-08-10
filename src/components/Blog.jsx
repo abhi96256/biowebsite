@@ -7,78 +7,86 @@ const MOCK_BLOGS = [
   {
     id: 1,
     category: 'Governance',
-    title: 'The Art of Policy Implementation: Lessons From the Field',
-    excerpt:
-      "After four decades in public service, I have come to understand one fundamental truth -- the distance between a policy document and its impact on a farmer's life is vast, and it is filled with the work of honest administrators.",
+    title: 'The Future of Digital Governance',
+    excerpt: 'Exploring how technology is transforming public administration and citizen services.',
     date: '2024-06-10',
-    readTime: '8 min read',
-    image:
-      'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=800&q=80',
+    readTime: '5 min read',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop',
     featured: true,
   },
   {
     id: 2,
-    category: 'Public Health',
-    title: "Rebuilding Rural Healthcare: What the Numbers Don't Tell You",
-    excerpt:
-      "Statistics can show bed occupancy and infant mortality rates -- but they cannot capture the relief on a mother's face when a functional primary health centre finally opens in her village.",
+    category: 'Governance',
+    title: 'Building Citizen-Centric Administration',
+    excerpt: 'Putting citizens at the center of policy design and service delivery.',
     date: '2024-05-22',
     readTime: '6 min read',
-    image:
-      'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&h=500&fit=crop',
     featured: false,
   },
   {
     id: 3,
-    category: 'Agriculture',
-    title: "From Paddy Fields to Policy Rooms: The Farmer's Voice in Planning",
-    excerpt:
-      'My most humbling experience as Collector of Karnal was sitting on a charpoy and listening -- truly listening -- to what farmers needed, not what we assumed they did.',
+    category: 'Innovation',
+    title: 'Innovation in Public Service',
+    excerpt: 'How innovative approaches are solving complex governance challenges.',
     date: '2024-04-14',
-    readTime: '7 min read',
-    image:
-      'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80',
+    readTime: '5 min read',
+    image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=500&fit=crop',
     featured: false,
   },
   {
     id: 4,
-    category: 'Infrastructure',
-    title: 'Building Roads, Building Futures: The G20 Infrastructure Story',
-    excerpt:
-      'When India hosted the G20 summit, the infrastructure challenge was enormous. But behind every highway and convention centre was a team of civil servants who worked tirelessly through the night.',
+    category: 'Development',
+    title: 'Sustainable Rural Development',
+    excerpt: 'Strategies for inclusive growth in rural communities.',
     date: '2024-03-05',
-    readTime: '10 min read',
-    image:
-      'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80',
+    readTime: '7 min read',
+    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=500&fit=crop',
     featured: false,
   },
   {
     id: 5,
-    category: 'Leadership',
-    title: 'Leading Without Authority: The Quiet Power of Persuasion',
-    excerpt:
-      'The IAS does not grant you the power to command people into productivity -- it gives you the responsibility to inspire them. The difference is everything.',
+    category: 'Policy',
+    title: 'Women Empowerment through Policy',
+    excerpt: 'Creating opportunities for women through targeted policy interventions.',
     date: '2024-02-18',
-    readTime: '5 min read',
-    image:
-      'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80',
+    readTime: '6 min read',
+    image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&h=500&fit=crop',
     featured: false,
   },
   {
     id: 6,
-    category: 'Education',
-    title: 'The Silent Revolution: How District-Level Education Reform Works',
-    excerpt:
-      'Transforming government schools is not about grand announcements. It is about fixing broken toilet doors, ensuring teachers arrive on time, and putting chalk in classrooms.',
+    category: 'Youth',
+    title: 'Youth as Nation Builders',
+    excerpt: 'Empowering the next generation of leaders and change-makers.',
     date: '2024-01-30',
+    readTime: '5 min read',
+    image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=500&fit=crop',
+    featured: false,
+  },
+  {
+    id: 7,
+    category: 'Leadership',
+    title: 'Leadership Lessons in Administration',
+    excerpt: 'Key insights from decades of public service leadership.',
+    date: '2024-01-15',
     readTime: '6 min read',
-    image:
-      'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=500&fit=crop',
+    featured: false,
+  },
+  {
+    id: 8,
+    category: 'Technology',
+    title: 'Technology for Better Governance',
+    excerpt: 'Leveraging digital tools for efficient and transparent administration.',
+    date: '2024-01-01',
+    readTime: '5 min read',
+    image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=500&fit=crop',
     featured: false,
   },
 ];
 
-const CATEGORIES = ['All', 'Governance', 'Public Health', 'Agriculture', 'Infrastructure', 'Leadership', 'Education'];
+const CATEGORIES = ['All', 'Governance', 'Innovation', 'Development', 'Policy', 'Youth', 'Leadership', 'Technology'];
 
 const formatDate = (dateStr) => {
   const d = new Date(dateStr);
@@ -133,10 +141,10 @@ const Blog = () => {
 
         {/* Header */}
         <div className="blog-section__header">
-          <span className="font-label-caps blog-section__label">Perspectives &amp; Reflections</span>
-          <h2 className="font-headline-lg blog-section__title">From the Desk of <br />Rajesh Kumar IAS</h2>
+          <span className="font-label-caps blog-section__label">Blog & Insights</span>
+          <h2 className="font-headline-lg blog-section__title">Recent Articles</h2>
           <p className="font-body-md blog-section__subtitle">
-            Candid reflections on governance, leadership, and four decades of public service — straight from the field.
+            Insights on governance, leadership, and public service.
           </p>
         </div>
 

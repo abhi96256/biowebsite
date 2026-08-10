@@ -2,15 +2,21 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import Introduction from './components/Introduction';
+
+import Mission from './components/Mission';
 import About from './components/About';
-import Quotes from './components/Quotes';
+import CoreValues from './components/CoreValues';
 import Timeline from './components/Timeline';
-import Impact from './components/Impact';
+import Leadership from './components/Leadership';
+import VisionMission from './components/VisionMission';
+import Initiatives from './components/Initiatives';
 import Awards from './components/Awards';
-import Legacy from './components/Legacy';
-import MapSection from './components/MapSection';
-import Tributes from './components/Tributes';
+import MediaGallery from './components/MediaGallery';
+import Testimonials from './components/Testimonials';
 import Blog from './components/Blog';
+import FAQs from './components/FAQs';
+import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Admin from './components/Admin/Admin';
 import SmoothScroll from './components/SmoothScroll';
@@ -27,15 +33,21 @@ function App() {
           <div className="app-container selection-theme">
             <Navbar />
             <Hero />
+            <Introduction />
+           
+            <Mission />
             <About />
-            <Quotes />
+            <CoreValues />
             <Timeline />
-            <Impact />
+            <Leadership />
+            <VisionMission />
+            <Initiatives />
             <Awards />
-            <Legacy />
-            <MapSection />
+            <MediaGallery />
+            <Testimonials />
             <Blog />
-            <Tributes />
+            <FAQs />
+            <Contact />
             <Footer />
           </div>
         </SmoothScroll>

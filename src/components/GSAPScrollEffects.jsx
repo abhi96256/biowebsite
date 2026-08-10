@@ -23,6 +23,11 @@ const GSAPScrollEffects = () => {
             const sections = document.querySelectorAll('section');
             
             sections.forEach(section => {
+                // SplitType wraps lines in overflow:hidden — clips mobile cards in Initiatives
+                if (section.id === 'initiatives' || section.classList.contains('initiatives-section')) {
+                    return;
+                }
+
                 // Animate Section Titles
                 const sectionTitles = section.querySelectorAll('h2, h3');
                 sectionTitles.forEach(title => {

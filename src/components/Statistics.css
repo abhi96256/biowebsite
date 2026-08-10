@@ -1,0 +1,181 @@
+/* Premium Light Theme Monolithic Statistics Section */
+.statistics-premium-section {
+
+    background: radial-gradient(ellipse at center, rgba(233, 195, 73, 0.05) 0%, var(--surface) 70%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Header */
+.stats-header-elegant {
+    text-align: center;
+    margin-bottom: 4rem;
+    position: relative;
+}
+
+.stats-header-line {
+    width: 2px;
+    height: 40px;
+    background: linear-gradient(180deg, transparent, var(--secondary));
+    margin: 0 auto 1.5rem;
+}
+
+.stats-label-caps {
+    display: block;
+    margin-bottom: 1rem;
+    color: var(--secondary);
+    font-size: 0.9rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.stats-headline {
+    font-size: clamp(32px, 5vw, 48px);
+    line-height: 1.2;
+    font-family: var(--font-playfair);
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* Monolithic Container */
+.stats-monolith {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(233, 195, 73, 0.3);
+    border-radius: 24px;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.05),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Internal Grid with 1px dividers */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: rgba(233, 195, 73, 0.15);
+    /* Divider color */
+    gap: 1px;
+    /* The gap creates the 1px dividers */
+}
+
+/* Individual Stat Cards */
+.stat-premium-card {
+    background: rgba(255, 255, 255, 0.85);
+    /* Slightly transparent white */
+    padding: 3.5rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Hover Effect - Subtle Lift & Background Change */
+.stat-premium-card:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: scale(1.02);
+    box-shadow: 0 10px 40px rgba(233, 195, 73, 0.15);
+    z-index: 10;
+}
+
+/* Icon */
+.stat-icon-wrapper {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--secondary);
+    border: 1px solid rgba(233, 195, 73, 0.3);
+    transition: all 0.5s ease;
+    background: transparent;
+}
+
+.stat-premium-card:hover .stat-icon-wrapper {
+    background: var(--secondary);
+    color: white;
+    transform: rotateY(180deg);
+}
+
+.stat-icon {
+    font-size: 28px;
+}
+
+/* Content */
+.stat-content {
+    position: relative;
+    z-index: 2;
+}
+
+.stat-number {
+    font-size: clamp(38px, 4vw, 56px);
+    font-weight: 700;
+    color: var(--primary);
+    font-family: var(--font-playfair);
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+    transition: color 0.4s ease;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--on-surface-variant);
+    font-weight: 600;
+}
+
+.stat-premium-card:hover .stat-number {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Hover Glow Background */
+.stat-hover-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(233, 195, 73, 0.05) 0%, transparent 70%);
+    border-radius: 50%;
+    transition: width 0.6s ease, height 0.6s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.stat-premium-card:hover .stat-hover-glow {
+    width: 150%;
+    height: 150%;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-premium-card {
+        padding: 3rem 1.5rem;
+    }
+}
