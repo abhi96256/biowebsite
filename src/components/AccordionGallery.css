@@ -121,16 +121,57 @@
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
 }
 
+@media (max-width: 768px) {
+  .accordion-gallery,
+  .accordion-gallery--mobile {
+    flex-direction: column;
+    perspective: none;
+    /* Keep a real height so flex-grow can fully expand the active card */
+    min-height: 560px;
+  }
+
+  .accordion-gallery--mobile .ag-panel,
+  .accordion-gallery .ag-panel {
+    min-height: 64px;
+    transform: none !important;
+  }
+
+  .accordion-gallery--mobile .ag-panel__media,
+  .accordion-gallery .ag-panel__media {
+    width: 100%;
+    height: var(--ag-media-size);
+  }
+
+  .accordion-gallery--mobile .ag-panel__label,
+  .accordion-gallery .ag-panel__label {
+    left: 14px;
+    bottom: 12px;
+    right: 14px;
+  }
+
+  .accordion-gallery--mobile .ag-panel__text,
+  .accordion-gallery .ag-panel__text {
+    font-size: 0.95rem;
+  }
+
+  .accordion-gallery--mobile .ag-panel--active .ag-panel__text,
+  .accordion-gallery .ag-panel--active .ag-panel__text {
+    font-size: 1.15rem;
+  }
+}
+
 @media (max-width: 520px) {
   .accordion-gallery {
     flex-direction: column;
     perspective: none;
-    height: auto !important;
+    min-height: 540px;
   }
+
   .ag-panel {
-    min-height: 84px;
+    min-height: 58px;
     transform: none !important;
   }
+
   .accordion-gallery .ag-panel__media {
     width: 100%;
     height: var(--ag-media-size);

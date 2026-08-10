@@ -41,14 +41,26 @@ const AccordionGallery = ({
   const firstRunRef = useRef(true);
   const mediaSizeRef = useRef(320);
 
-  const vertical = orientation === 'vertical';
+  const [isNarrow, setIsNarrow] = useState(false);
   const count = items.length;
   const [active, setActive] = useState(Math.min(Math.max(defaultIndex, 0), count - 1));
+
+  // Mobile stacks panels vertically — treat like vertical for expand math
+  const vertical = orientation === 'vertical' || isNarrow;
 
   const prefersReduced =
     typeof window !== 'undefined' && window.matchMedia
       ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
       : false;
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return undefined;
+    const mq = window.matchMedia('(max-width: 768px)');
+    const sync = () => setIsNarrow(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
 
   const applyLayout = useCallback(
     animate => {
@@ -70,10 +82,20 @@ const AccordionGallery = ({
         const bar = barRefs.current[i];
         const text = textRefs.current[i];
 
-        const rot = isActive ? 0 : i < active ? tilt : -tilt;
+        const rot = isActive || isNarrow ? 0 : i < active ? tilt : -tilt;
         const rotProp = vertical ? { rotateX: -rot } : { rotateY: rot };
 
-        tl.to(panel, { flexGrow: isActive ? grow : 1, ...rotProp, duration: dur, ease }, 0);
+        tl.to(
+          panel,
+          {
+            flexGrow: isActive ? grow : 1,
+            flexBasis: 0,
+            ...rotProp,
+            duration: dur,
+            ease
+          },
+          0
+        );
 
         if (media) {
           const drift = Math.max(-1.5, Math.min(1.5, active - i));
@@ -97,7 +119,20 @@ const AccordionGallery = ({
 
         if (showLabels && bar && text) {
           if (isActive) {
-            tl.to([bar, text], { opacity: 1, x: 0, duration: dur, ease, stagger: prefersReduced ? 0 : stagger }, 0);
+            tl.to(
+              [bar, text],
+              {
+                opacity: 1,
+                x: 0,
+                duration: dur,
+                ease,
+                stagger: prefersReduced ? 0 : stagger
+              },
+              0
+            );
+          } else if (isNarrow) {
+            // Keep collapsed labels faintly visible so users know what to tap
+            tl.to([bar, text], { opacity: 0.55, x: 0, duration: dur * 0.5, ease }, 0);
           } else {
             tl.to([bar, text], { opacity: 0, x: -14, duration: dur * 0.6, ease }, 0);
           }
@@ -118,7 +153,8 @@ const AccordionGallery = ({
       grayscale,
       showLabels,
       stagger,
-      prefersReduced
+      prefersReduced,
+      isNarrow
     ]
   );
 
@@ -155,13 +191,19 @@ const AccordionGallery = ({
   );
 
   const handleEnter = i => {
-    if (trigger === 'hover') setActive(i);
+    if (isNarrow) return;
+    if (trigger === 'hover' || trigger === 'both') setActive(i);
   };
 
   const handleClick = (i, e) => {
     if (i !== active) {
       e.preventDefault();
       setActive(i);
+      return;
+    }
+    // Active + placeholder link — don't navigate away
+    if (!items[i]?.link || items[i].link === '#') {
+      e.preventDefault();
     }
   };
 
@@ -172,20 +214,29 @@ const AccordionGallery = ({
     } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
       e.preventDefault();
       setActive((i - 1 + count) % count);
+    } else if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setActive(i);
     }
   };
+
+  const galleryHeight = isNarrow
+    ? Math.max(Math.round(height * 1.35), 560)
+    : vertical
+      ? Math.round(height * 1.6)
+      : height;
 
   return (
     <div
       ref={rootRef}
-      className={`accordion-gallery${vertical ? ' accordion-gallery--vertical' : ''}${className ? ` ${className}` : ''}`}
+      className={`accordion-gallery${vertical ? ' accordion-gallery--vertical' : ''}${isNarrow ? ' accordion-gallery--mobile' : ''}${className ? ` ${className}` : ''}`}
       style={{
         '--ag-accent': accentColor,
         '--ag-overlay': overlayColor,
         '--ag-text': textColor,
         '--ag-gap': `${gap}px`,
         '--ag-radius': `${radius}px`,
-        height: vertical ? `${Math.round(height * 1.6)}px` : `${height}px` 
+        height: `${galleryHeight}px`
       }}
       role="list"
       aria-label="Image accordion gallery"

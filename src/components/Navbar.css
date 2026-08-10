@@ -31,11 +31,16 @@
 }
 
 .navbar-brand {
+    display: none;
     color: #ffffff;
+    text-decoration: none;
+    font-family: var(--font-playfair);
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
-    font-size: clamp(14px, 3vw, 22px);
-    flex-shrink: 1;
-    min-width: 0;
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .navbar-links {
@@ -47,6 +52,26 @@
 @media (min-width: 900px) {
     .navbar-links {
         display: flex;
+        flex: 1;
+        justify-content: center;
+    }
+
+    .navbar-brand {
+        display: none;
+    }
+}
+
+@media (max-width: 899px) {
+    .navbar-brand {
+        display: block;
+    }
+
+    .navbar-container {
+        justify-content: space-between;
+    }
+
+    .navbar-right {
+        margin-left: auto;
     }
 }
 

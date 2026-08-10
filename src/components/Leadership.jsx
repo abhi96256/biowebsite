@@ -26,18 +26,18 @@ const Leadership = () => {
                     <AccordionGallery
                         items={principleItems}
                         defaultIndex={2}
-                        expandRatio={0.52}
-                        trigger="hover"
+                        expandRatio={0.58}
+                        trigger="both"
                         accentColor="#e9c349"
                         overlayColor="#0a0713"
                         textColor="#ffffff"
                         grayscale
                         showLabels
-                        duration={0.6}
+                        duration={0.55}
                         ease="power3.out"
-                        parallax={0.5}
+                        parallax={0.45}
                         tilt={8}
-                        stagger={0.06}
+                        stagger={0.05}
                         height={460}
                         gap={10}
                         radius={16}

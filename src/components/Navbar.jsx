@@ -36,6 +36,10 @@ const Navbar = () => {
         <>
             <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
                 <div className="navbar-container max-w-container-max px-margin-mobile md-px-margin-desktop">
+                    <a href="#home" className="navbar-brand" onClick={handleNavClick}>
+                        Suresh IAS
+                    </a>
+
                     {/* Desktop links */}
                     <div className="navbar-links">
                         {['home', 'about', 'journey', 'leadership', 'vision-mission', 'initiatives', 'achievements', 'media-gallery', 'testimonials', 'blog', 'faqs', 'contact'].map(item => (
@@ -50,11 +54,12 @@ const Navbar = () => {
                     </div>
 
                     <div className="navbar-right">
-                        {/* Hamburger */}
+                        {/* Hamburger — mobile only */}
                         <button
                             className={`navbar-hamburger ${menuOpen ? 'open' : ''}`}
                             onClick={() => setMenuOpen(o => !o)}
                             aria-label="Toggle menu"
+                            aria-expanded={menuOpen}
                         >
                             <span /><span /><span />
                         </button>
