@@ -97,24 +97,7 @@
     font-weight: 600;
 }
 
-.hl-intro-diamond {
-    width: 8px;
-    height: 8px;
-    background: var(--secondary-fixed-dim);
-    transform: rotate(45deg);
-    box-shadow: 0 0 12px rgba(233, 195, 73, 0.45);
-    position: relative;
-}
 
-.hl-intro-diamond::after {
-    content: '';
-    position: absolute;
-    left: 14px;
-    top: 3px;
-    width: 72px;
-    height: 1px;
-    background: linear-gradient(90deg, var(--secondary-fixed-dim), transparent);
-}
 
 /* Right rail — editorial rows, no cards */
 .hl-rail {
