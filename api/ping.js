@@ -13,7 +13,10 @@ module.exports = async (req, res) => {
     "https://ias-website-api.onrender.com/api/health";
 
   try {
-    const response = await fetch(target, { method: "GET" });
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+    const response = await fetch(target, { method: "GET", signal: controller.signal });
+    clearTimeout(timeout);
     const bodyText = await response.text();
     return res.status(200).json({
       ok: response.ok,
@@ -23,10 +26,11 @@ module.exports = async (req, res) => {
       at: new Date().toISOString(),
     });
   } catch (error) {
-    return res.status(500).json({
+    const isTimeout = error?.name === "AbortError";
+    return res.status(isTimeout ? 504 : 500).json({
       ok: false,
       target,
-      error: error.message || "ping failed",
+      error: isTimeout ? "ping timeout (backend sleeping/cold start)" : (error.message || "ping failed"),
       at: new Date().toISOString(),
     });
   }
