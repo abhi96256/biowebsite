@@ -12,6 +12,7 @@
     padding: 20px;
 }
 
+
 .login-card {
     background: white;
     padding: 40px;
@@ -202,9 +203,30 @@
 }
 
 .section-title {
-    margin: 0 0 30px 0;
+    margin: 0 0 12px 0;
     color: #333;
     font-size: 32px;
+}
+
+.section-hint {
+    color: #666;
+    font-size: 14px;
+    margin: 0 0 24px 0;
+    line-height: 1.5;
+}
+
+.empty-section {
+    color: #888;
+    padding: 12px 0;
+}
+
+.no-image {
+    padding: 20px;
+    border: 1px dashed #ccc;
+    border-radius: 8px;
+    color: #888;
+    margin-bottom: 12px;
+    text-align: center;
 }
 
 .content-list {
@@ -321,3 +343,114 @@
     opacity: 0.6;
     cursor: not-allowed;
 }
+
+/* List editors (blog, testimonials, gallery, leadership…) */
+.list-editor {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.list-editor__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.list-editor__title {
+    font-weight: 600;
+    color: #444;
+}
+
+.list-editor__add {
+    padding: 8px 14px;
+    background: #1b7f4e;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.list-editor__add:hover {
+    background: #156b41;
+}
+
+.list-card {
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    padding: 16px;
+    background: #fafafa;
+}
+
+.list-card__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.list-card__index {
+    font-size: 12px;
+    font-weight: 700;
+    color: #667eea;
+    letter-spacing: 0.04em;
+}
+
+.list-card__remove {
+    padding: 6px 12px;
+    background: #c33;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.list-card__fields {
+    display: grid;
+    gap: 12px;
+}
+
+.list-field label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+}
+
+.list-field--check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #444;
+}
+
+.list-field--check input {
+    width: 16px;
+    height: 16px;
+}
+
+.list-card__thumb {
+    width: 100%;
+    max-width: 220px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .list-card__thumb {
+        max-width: 100%;
+    }
+}
+

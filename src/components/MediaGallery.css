@@ -39,6 +39,7 @@
 .media-gallery-header h2 {
     font-size: clamp(28px, 4vw, 42px);
     line-height: 1.2;
+    color: #8a6a2f;
     background: linear-gradient(135deg, var(--primary) 0%, rgba(233, 195, 73, 0.8) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -167,6 +168,12 @@
 }
 
 @media (max-width: 767px) {
+    .media-gallery-header h2 {
+        color: #8a6a2f !important;
+        background: none !important;
+        -webkit-text-fill-color: #8a6a2f !important;
+    }
+
     .photo-grid,
     .video-grid {
         grid-template-columns: repeat(2, 1fr);

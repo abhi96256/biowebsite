@@ -1,5 +1,6 @@
 import React from 'react';
 import './Contact.css';
+import { useContent } from '../context/ContentContext';
 
 const SocialIcon = ({ name }) => {
     const common = {
@@ -46,27 +47,48 @@ const SocialIcon = ({ name }) => {
 };
 
 const Contact = () => {
+    const { getContent } = useContent();
+    const email = getContent('contact', 'email_text', 'contact@sureshias.in');
+
     const contactInfo = [
-        { label: 'Office', text: 'District Collector Office', icon: 'business' },
-        { label: 'Email', text: 'contact@sureshias.in', icon: 'email', href: 'mailto:contact@sureshias.in' },
-        { label: 'Phone', text: '+91 XXXXX XXXXX', icon: 'phone', href: 'tel:+91' },
-        { label: 'Office Hours', text: 'Monday – Friday, 9:30 AM – 5:30 PM', icon: 'schedule' }
+        {
+            label: getContent('contact', 'office_label', 'Office'),
+            text: getContent('contact', 'office_text', 'District Collector Office'),
+            icon: 'business'
+        },
+        {
+            label: getContent('contact', 'email_label', 'Email'),
+            text: email,
+            icon: 'email',
+            href: `mailto:${email}`
+        },
+        {
+            label: getContent('contact', 'phone_label', 'Phone'),
+            text: getContent('contact', 'phone_text', '+91 XXXXX XXXXX'),
+            icon: 'phone',
+            href: 'tel:+91'
+        },
+        {
+            label: getContent('contact', 'hours_label', 'Office Hours'),
+            text: getContent('contact', 'hours_text', 'Monday – Friday, 9:30 AM – 5:30 PM'),
+            icon: 'schedule'
+        }
     ];
 
     const socialLinks = [
-        { name: 'LinkedIn', id: 'linkedin', href: '#' },
-        { name: 'X (Twitter)', id: 'x', href: '#' },
-        { name: 'Facebook', id: 'facebook', href: '#' },
-        { name: 'Instagram', id: 'instagram', href: '#' },
-        { name: 'YouTube', id: 'youtube', href: '#' }
+        { name: 'LinkedIn', id: 'linkedin', href: getContent('contact', 'linkedin_url', '#') },
+        { name: 'X (Twitter)', id: 'x', href: getContent('contact', 'x_url', '#') },
+        { name: 'Facebook', id: 'facebook', href: getContent('contact', 'facebook_url', '#') },
+        { name: 'Instagram', id: 'instagram', href: getContent('contact', 'instagram_url', '#') },
+        { name: 'YouTube', id: 'youtube', href: getContent('contact', 'youtube_url', '#') }
     ];
 
     return (
         <section className="contact-premium-section" id="contact">
             <div className="max-w-container-max px-margin-mobile md-px-margin-desktop relative z-10">
                 <div className="contact-elegant-header">
-                    <span className="contact-label-caps">Get in Touch</span>
-                    <h2 className="contact-headline">Contact</h2>
+                    <span className="contact-label-caps">{getContent('contact', 'label', 'Get in Touch')}</span>
+                    <h2 className="contact-headline">{getContent('contact', 'headline', 'Contact')}</h2>
                     <div className="contact-header-line" aria-hidden="true" />
                 </div>
 
@@ -98,8 +120,12 @@ const Contact = () => {
                     <div className="contact-social-panel">
                         <div className="social-panel-shell">
                             <div className="social-panel-inner">
-                                <span className="social-panel-label">Connect</span>
-                                <h3 className="social-headline">Social Media</h3>
+                                <span className="social-panel-label">
+                                    {getContent('contact', 'social_label', 'Connect')}
+                                </span>
+                                <h3 className="social-headline">
+                                    {getContent('contact', 'social_headline', 'Social Media')}
+                                </h3>
                                 <div className="social-links-grid">
                                     {socialLinks.map((link) => (
                                         <a

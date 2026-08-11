@@ -36,14 +36,25 @@
     text-transform: uppercase;
 }
 
-.leadership-header h2 {
-    font-size: clamp(32px, 4vw, 48px);
+.leadership-header h2,
+.leadership-headline {
+    font-size: clamp(28px, 4vw, 48px);
     margin-bottom: 1.5rem;
-    color: #fff;
-    background: linear-gradient(135deg, #ffffff 0%, var(--secondary-fixed) 55%, var(--secondary-fixed-dim) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    line-height: 1.25;
+    color: #e9c349;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Gradient enhancement — desktop only; solid gold above always shows on mobile */
+@media (min-width: 769px) {
+    .leadership-header h2,
+    .leadership-headline {
+        background: linear-gradient(135deg, #ffffff 0%, var(--secondary-fixed) 55%, var(--secondary-fixed-dim) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
 }
 
 .leadership-header p {
@@ -62,13 +73,21 @@
 @media (max-width: 767px) {
     .leadership-header {
         margin-bottom: 2.5rem;
+        padding: 0 4px;
     }
 
-    .leadership-header h2 {
-        font-size: 24px;
+    .leadership-header h2,
+    .leadership-headline {
+        font-size: clamp(22px, 6vw, 28px);
+        line-height: 1.35;
+        color: #e9c349 !important;
+        -webkit-text-fill-color: #e9c349 !important;
+        background: none !important;
     }
 
     .leadership-header p {
         font-size: 1rem;
+        opacity: 1;
+        visibility: visible;
     }
 }

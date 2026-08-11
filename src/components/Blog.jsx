@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import './Blog.css';
+import { useContent } from '../context/ContentContext';
 
-// ─── Mock Data ────────────────────────────────────────────────────────────────
-// Jab backend ready ho, yahan API call karein: fetch('/api/blogs')
-const MOCK_BLOGS = [
+const DEFAULT_BLOGS = [
   {
     id: 1,
     category: 'Governance',
@@ -12,7 +11,7 @@ const MOCK_BLOGS = [
     date: '2024-06-10',
     readTime: '5 min read',
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop',
-    featured: true,
+    featured: true
   },
   {
     id: 2,
@@ -22,7 +21,7 @@ const MOCK_BLOGS = [
     date: '2024-05-22',
     readTime: '6 min read',
     image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&h=500&fit=crop',
-    featured: false,
+    featured: false
   },
   {
     id: 3,
@@ -32,7 +31,7 @@ const MOCK_BLOGS = [
     date: '2024-04-14',
     readTime: '5 min read',
     image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=500&fit=crop',
-    featured: false,
+    featured: false
   },
   {
     id: 4,
@@ -42,7 +41,7 @@ const MOCK_BLOGS = [
     date: '2024-03-05',
     readTime: '7 min read',
     image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=500&fit=crop',
-    featured: false,
+    featured: false
   },
   {
     id: 5,
@@ -52,7 +51,7 @@ const MOCK_BLOGS = [
     date: '2024-02-18',
     readTime: '6 min read',
     image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&h=500&fit=crop',
-    featured: false,
+    featured: false
   },
   {
     id: 6,
@@ -62,7 +61,7 @@ const MOCK_BLOGS = [
     date: '2024-01-30',
     readTime: '5 min read',
     image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=500&fit=crop',
-    featured: false,
+    featured: false
   },
   {
     id: 7,
@@ -72,7 +71,7 @@ const MOCK_BLOGS = [
     date: '2024-01-15',
     readTime: '6 min read',
     image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=500&fit=crop',
-    featured: false,
+    featured: false
   },
   {
     id: 8,
@@ -82,18 +81,26 @@ const MOCK_BLOGS = [
     date: '2024-01-01',
     readTime: '5 min read',
     image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=500&fit=crop',
-    featured: false,
-  },
+    featured: false
+  }
 ];
 
-const CATEGORIES = ['All', 'Governance', 'Innovation', 'Development', 'Policy', 'Youth', 'Leadership', 'Technology'];
+const DEFAULT_CATEGORIES = [
+  'All',
+  'Governance',
+  'Innovation',
+  'Development',
+  'Policy',
+  'Youth',
+  'Leadership',
+  'Technology'
+];
 
 const formatDate = (dateStr) => {
   const d = new Date(dateStr);
   return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
 };
 
-// ─── Blog Card ────────────────────────────────────────────────────────────────
 const BlogCard = ({ blog, featured }) => (
   <article className={`blog-card ${featured ? 'blog-card--featured' : ''}`}>
     <div className="blog-card__img-wrap">
@@ -103,12 +110,16 @@ const BlogCard = ({ blog, featured }) => (
     <div className="blog-card__body">
       <div className="blog-card__meta">
         <span className="blog-card__date font-label-caps">
-          <span className="material-symbols-outlined" style={{ fontSize: 14, verticalAlign: 'middle', marginRight: 4 }}>calendar_today</span>
+          <span className="material-symbols-outlined" style={{ fontSize: 14, verticalAlign: 'middle', marginRight: 4 }}>
+            calendar_today
+          </span>
           {formatDate(blog.date)}
         </span>
         <span className="blog-card__dot">·</span>
         <span className="blog-card__read font-label-caps">
-          <span className="material-symbols-outlined" style={{ fontSize: 14, verticalAlign: 'middle', marginRight: 4 }}>schedule</span>
+          <span className="material-symbols-outlined" style={{ fontSize: 14, verticalAlign: 'middle', marginRight: 4 }}>
+            schedule
+          </span>
           {blog.readTime}
         </span>
       </div>
@@ -116,20 +127,31 @@ const BlogCard = ({ blog, featured }) => (
       <p className="blog-card__excerpt font-body-md">{blog.excerpt}</p>
       <button className="blog-card__btn">
         Read Article
-        <span className="material-symbols-outlined" style={{ fontSize: 18 }}>arrow_forward</span>
+        <span className="material-symbols-outlined" style={{ fontSize: 18 }}>
+          arrow_forward
+        </span>
       </button>
     </div>
   </article>
 );
 
-// ─── Main Blog Section ─────────────────────────────────────────────────────────
 const Blog = () => {
+  const { getContent, getJSON } = useContent();
   const [activeCategory, setActiveCategory] = useState('All');
   const [visibleCount, setVisibleCount] = useState(5);
 
-  const filtered = activeCategory === 'All'
-    ? MOCK_BLOGS
-    : MOCK_BLOGS.filter(b => b.category === activeCategory);
+  const label = getContent('blog', 'label', 'Blog & Insights');
+  const headline = getContent('blog', 'headline', 'Recent Articles');
+  const description = getContent(
+    'blog',
+    'description',
+    'Insights on governance, leadership, and public service.'
+  );
+  const blogs = getJSON('blog', 'items', DEFAULT_BLOGS);
+  const categories = getJSON('blog', 'categories', DEFAULT_CATEGORIES);
+
+  const filtered =
+    activeCategory === 'All' ? blogs : blogs.filter((b) => b.category === activeCategory);
 
   const visible = filtered.slice(0, visibleCount);
   const featured = visible[0];
@@ -138,30 +160,29 @@ const Blog = () => {
   return (
     <section className="blog-section" id="blog">
       <div className="max-w-container-max px-margin-mobile md-px-margin-desktop blog-section__inner">
-
-        {/* Header */}
         <div className="blog-section__header">
-          <span className="font-label-caps blog-section__label">Blog & Insights</span>
-          <h2 className="font-headline-lg blog-section__title">Recent Articles</h2>
-          <p className="font-body-md blog-section__subtitle">
-            Insights on governance, leadership, and public service.
-          </p>
+          <span className="font-label-caps blog-section__label">{label}</span>
+          <h2 className="font-headline-lg blog-section__title">{headline}</h2>
+          <p className="font-body-md blog-section__subtitle">{description}</p>
         </div>
 
-        {/* Category Filter */}
         <div className="blog-filter">
-          {CATEGORIES.map(cat => (
+          {categories.map((cat) => (
             <button
               key={cat}
-              className={`blog-filter__btn font-label-caps ${activeCategory === cat ? 'blog-filter__btn--active' : ''}`}
-              onClick={() => { setActiveCategory(cat); setVisibleCount(5); }}
+              className={`blog-filter__btn font-label-caps ${
+                activeCategory === cat ? 'blog-filter__btn--active' : ''
+              }`}
+              onClick={() => {
+                setActiveCategory(cat);
+                setVisibleCount(5);
+              }}
             >
               {cat}
             </button>
           ))}
         </div>
 
-        {/* Featured + Grid */}
         {featured && (
           <>
             <div className="blog-featured-wrap">
@@ -170,8 +191,8 @@ const Blog = () => {
 
             {rest.length > 0 && (
               <div className="blog-grid">
-                {rest.map(blog => (
-                  <BlogCard key={blog.id} blog={blog} featured={false} />
+                {rest.map((blog) => (
+                  <BlogCard key={blog.id || blog.title} blog={blog} featured={false} />
                 ))}
               </div>
             )}
@@ -180,17 +201,22 @@ const Blog = () => {
 
         {filtered.length === 0 && (
           <div className="blog-empty">
-            <span className="material-symbols-outlined" style={{ fontSize: 48, color: 'var(--outline)' }}>article</span>
-            <p className="font-body-md" style={{ color: 'var(--outline)' }}>No articles in this category yet.</p>
+            <span className="material-symbols-outlined" style={{ fontSize: 48, color: 'var(--outline)' }}>
+              article
+            </span>
+            <p className="font-body-md" style={{ color: 'var(--outline)' }}>
+              No articles in this category yet.
+            </p>
           </div>
         )}
 
-        {/* Load More */}
         {visibleCount < filtered.length && (
           <div className="blog-load-more">
-            <button className="blog-load-btn font-label-caps" onClick={() => setVisibleCount(v => v + 3)}>
+            <button className="blog-load-btn font-label-caps" onClick={() => setVisibleCount((v) => v + 3)}>
               Load More Articles
-              <span className="material-symbols-outlined" style={{ fontSize: 18 }}>expand_more</span>
+              <span className="material-symbols-outlined" style={{ fontSize: 18 }}>
+                expand_more
+              </span>
             </button>
           </div>
         )}

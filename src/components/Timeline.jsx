@@ -1,75 +1,59 @@
 import React, { useState, useEffect } from 'react';
 import './Timeline.css';
+import { useContent } from '../context/ContentContext';
+
+const DEFAULT_ITEMS = [
+    {
+        year: 'Early Career',
+        title: 'Early Career',
+        subtitle: 'Developed expertise in public administration, policy implementation, and governance.',
+        
+    },
+    {
+        year: 'Administrative Leadership',
+        title: 'Administrative Leadership',
+        subtitle:
+            'Led district-level administration while focusing on infrastructure, education, healthcare, and citizen welfare.',
+       
+    },
+    {
+        year: 'Innovation',
+        title: 'Innovation',
+        subtitle: 'Introduced technology-driven governance initiatives to improve service delivery.',
+        
+    },
+    {
+        year: 'Community Engagement',
+        title: 'Community Engagement',
+        subtitle:
+            'Worked closely with local communities to understand their challenges and develop practical solutions.',
+        
+    }
+];
 
 const Timeline = () => {
+    const { getContent, getJSON } = useContent();
     const [isMobile, setIsMobile] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
 
+    const label = getContent('timeline', 'label', 'Archival Record');
+    const headline = getContent('timeline', 'headline', 'The Service Timeline');
+    const timelineData = getJSON('timeline', 'items', DEFAULT_ITEMS);
+
     useEffect(() => {
-        const checkMobile = () => {
-            setIsMobile(window.innerWidth < 768);
-        };
-        
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
         checkMobile();
         window.addEventListener('resize', checkMobile);
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
 
     useEffect(() => {
-        if (!isMobile) return;
-        
+        if (!isMobile || !timelineData.length) return;
         const interval = setInterval(() => {
-            setCurrentIndex((prev) => (prev + 1) % 4);
+            setCurrentIndex((prev) => (prev + 1) % timelineData.length);
         }, 4000);
-        
         return () => clearInterval(interval);
-    }, [isMobile]);
-
-    const timelineData = [
-        {
-            year: 'Early Career',
-            title: 'Early Career',
-            subtitle: 'Developed expertise in public administration, policy implementation, and governance.',
-            items: [
-                'Built strong foundation in public administration',
-                'Learned policy implementation strategies',
-                'Developed governance frameworks'
-            ]
-        },
-        {
-            year: 'Administrative Leadership',
-            title: 'Administrative Leadership',
-            subtitle: 'Led district-level administration while focusing on infrastructure, education, healthcare, and citizen welfare.',
-            items: [
-                'Led district-level administration',
-                'Focused on infrastructure development',
-                'Improved education and healthcare services',
-                'Enhanced citizen welfare programs'
-            ]
-        },
-        {
-            year: 'Innovation',
-            title: 'Innovation',
-            subtitle: 'Introduced technology-driven governance initiatives to improve service delivery.',
-            items: [
-                'Introduced technology-driven governance',
-                'Improved service delivery systems',
-                'Implemented digital solutions',
-                'Enhanced administrative efficiency'
-            ]
-        },
-        {
-            year: 'Community Engagement',
-            title: 'Community Engagement',
-            subtitle: 'Worked closely with local communities to understand their challenges and develop practical solutions.',
-            items: [
-                'Worked closely with local communities',
-                'Understood community challenges',
-                'Developed practical solutions',
-                'Built strong community relationships'
-            ]
-        }
-    ];
+    }, [isMobile, timelineData.length]);
 
     const renderTimelineItem = (item, index, isReverse = false) => (
         <div className={`timeline-item ${isReverse ? 'reverse' : ''} ${index === 2 ? 'mb-small' : ''}`}>
@@ -83,8 +67,10 @@ const Timeline = () => {
                     <h3 className="font-headline-md text-primary title-size mb-2">{item.title}</h3>
                     <p className="font-body-md text-on-surface-variant italic mb-4">{item.subtitle}</p>
                     <ul className="timeline-list font-body-md">
-                        {item.items.map((listItem, i) => (
-                            <li key={i}><span className="text-secondary mr-2">•</span> {listItem}</li>
+                        {(item.items || []).map((listItem, i) => (
+                            <li key={i}>
+                                <span className="text-secondary mr-2">•</span> {listItem}
+                            </li>
                         ))}
                     </ul>
                 </div>
@@ -99,8 +85,10 @@ const Timeline = () => {
                 <h3 className="font-headline-md text-primary title-size mb-2">{item.title}</h3>
                 <p className="font-body-md text-on-surface-variant italic mb-4">{item.subtitle}</p>
                 <ul className="timeline-list font-body-md">
-                    {item.items.map((listItem, i) => (
-                        <li key={i}><span className="text-secondary mr-2">•</span> {listItem}</li>
+                    {(item.items || []).map((listItem, i) => (
+                        <li key={i}>
+                            <span className="text-secondary mr-2">•</span> {listItem}
+                        </li>
                     ))}
                 </ul>
             </div>
@@ -110,10 +98,10 @@ const Timeline = () => {
     return (
         <section className="timeline-section" id="journey">
             <div className="timeline-header max-w-container-max px-margin-mobile md-px-margin-desktop">
-                <span className="font-label-caps text-secondary uppercase tracking-widest block mb-4">Archival Record</span>
-                <h2 className="font-headline-lg text-primary">The Service Timeline</h2>
+                <span className="font-label-caps text-secondary uppercase tracking-widest block mb-4">{label}</span>
+                <h2 className="font-headline-lg text-primary">{headline}</h2>
             </div>
-            
+
             {isMobile ? (
                 <div className="timeline-carousel px-margin-mobile">
                     <div className="carousel-slides">

@@ -1,5 +1,6 @@
 import React from 'react';
 import './Footer.css';
+import { useContent } from '../context/ContentContext';
 
 const currentYear = new Date().getFullYear();
 
@@ -11,7 +12,7 @@ const NAV_LINKS = [
   { label: 'Initiatives', href: '#initiatives' },
   { label: 'Gallery', href: '#media-gallery' },
   { label: 'Blog', href: '#blog' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Contact', href: '#contact' }
 ];
 
 const QUICK_LINKS = [
@@ -20,44 +21,41 @@ const QUICK_LINKS = [
   { label: 'RTI Information', href: '#' },
   { label: 'Government Schemes', href: '#' },
   { label: 'Privacy Policy', href: '#' },
-  { label: 'Terms of Use', href: '#' },
+  { label: 'Terms of Use', href: '#' }
 ];
 
 const Footer = () => {
+  const { getContent } = useContent();
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
     <footer className="footer-v2">
-
-      {/* ── Top back-to-top bar ── */}
       <div className="footer-top-bar">
         <div className="footer-top-inner max-w-container-max px-margin-mobile md-px-margin-desktop">
           <p className="footer-top-text font-label-caps">
-            A life in service of the nation &mdash; Haryana Cadre, IAS 1984
+            {getContent('footer', 'top_text', 'A life in service of the nation — Haryana Cadre, IAS 1984')}
           </p>
           <button className="footer-scroll-top font-label-caps" onClick={scrollToTop}>
             Back to top
-            <span className="material-symbols-outlined" style={{ fontSize: 16 }}>arrow_upward</span>
+            <span className="material-symbols-outlined" style={{ fontSize: 16 }}>
+              arrow_upward
+            </span>
           </button>
         </div>
       </div>
 
-      {/* ── Main body ── */}
       <div className="footer-body max-w-container-max px-margin-mobile md-px-margin-desktop">
-
-        {/* Brand col */}
         <div className="footer-brand-col">
-          <span className="footer-brand-name">SURESH, IAS</span>
+          <span className="footer-brand-name">{getContent('footer', 'brand_name', 'SURESH, IAS')}</span>
           <p className="footer-brand-desc font-body-md">
-            Serving the Nation with Integrity, Accountability & Excellence.
+            {getContent('footer', 'brand_desc', 'Serving the Nation with Integrity, Accountability & Excellence.')}
           </p>
         </div>
 
-        {/* Nav Links */}
         <div className="footer-links-col">
           <h4 className="footer-col-heading font-label-caps">Explore</h4>
           <ul className="footer-link-list">
-            {NAV_LINKS.map(l => (
+            {NAV_LINKS.map((l) => (
               <li key={l.label}>
                 <a href={l.href} className="footer-link font-body-md">
                   <span className="footer-link-arrow material-symbols-outlined">chevron_right</span>
@@ -68,11 +66,10 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Quick Links */}
         <div className="footer-links-col">
           <h4 className="footer-col-heading font-label-caps">Quick Links</h4>
           <ul className="footer-link-list">
-            {QUICK_LINKS.map(l => (
+            {QUICK_LINKS.map((l) => (
               <li key={l.label}>
                 <a href={l.href} className="footer-link font-body-md">
                   <span className="footer-link-arrow material-symbols-outlined">chevron_right</span>
@@ -83,11 +80,10 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Contact / Icons col */}
         <div className="footer-links-col">
           <h4 className="footer-col-heading font-label-caps">Useful Links</h4>
           <ul className="footer-link-list">
-            {QUICK_LINKS.map(l => (
+            {QUICK_LINKS.map((l) => (
               <li key={l.label}>
                 <a href={l.href} className="footer-link font-body-md">
                   <span className="footer-link-arrow material-symbols-outlined">chevron_right</span>
@@ -99,13 +95,11 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* ── Divider ── */}
       <div className="footer-divider max-w-container-max px-margin-mobile md-px-margin-desktop" />
 
-      {/* ── Bottom bar ── */}
       <div className="footer-bottom max-w-container-max px-margin-mobile md-px-margin-desktop">
         <p className="footer-copy font-label-caps">
-          &copy; {currentYear} Suresh, IAS. All Rights Reserved.
+          &copy; {currentYear} {getContent('footer', 'copyright', 'Suresh, IAS. All Rights Reserved.')}
         </p>
         <div className="footer-bottom-icons">
           <span className="material-symbols-outlined footer-icon">history_edu</span>
@@ -114,7 +108,6 @@ const Footer = () => {
           <span className="material-symbols-outlined footer-icon">gavel</span>
         </div>
       </div>
-
     </footer>
   );
 };
