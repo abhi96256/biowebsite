@@ -6,7 +6,7 @@ import { useContent } from '../context/ContentContext';
 const Hero = () => {
     const { getContent, getImage } = useContent();
 
-    const title = getContent('hero', 'title', 'Dr.SURESH (IAS)');
+    const title = getContent('hero', 'title', 'Dr.D.SURESH (IAS)');
     const tagline = getContent(
         'hero',
         'tagline',
@@ -39,7 +39,7 @@ const Hero = () => {
             </div>
 
             <div className="hero-v2__name-bg" aria-hidden="true">
-                <span className="hero-v2__name-top">{getContent('hero', 'name_top', 'Dr.SURESH')}</span>
+                <span className="hero-v2__name-top">{getContent('hero', 'name_top', 'Dr.D.SURESH')}</span>
                 <span className="hero-v2__name-bottom">{getContent('hero', 'name_bottom', 'IAS')}</span>
             </div>
 

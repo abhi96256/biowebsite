@@ -46,7 +46,7 @@ const Footer = () => {
 
       <div className="footer-body max-w-container-max px-margin-mobile md-px-margin-desktop">
         <div className="footer-brand-col">
-          <span className="footer-brand-name">{getContent('footer', 'brand_name', 'DR.SURESH, IAS')}</span>
+          <span className="footer-brand-name">{getContent('footer', 'brand_name', 'DR.D.SURESH, IAS')}</span>
           <p className="footer-brand-desc font-body-md">
             {getContent('footer', 'brand_desc', 'Serving the Nation with Integrity, Accountability & Excellence.')}
           </p>
