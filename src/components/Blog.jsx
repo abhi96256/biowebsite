@@ -2,6 +2,15 @@ import React, { useState } from 'react';
 import './Blog.css';
 import { useContent } from '../context/ContentContext';
 
+const resolveBlogImage = (src) => {
+  if (!src) return '';
+  if (src.startsWith('http') || src.startsWith('data:') || src.startsWith('blob:')) return src;
+  if (src.startsWith('/uploads')) return `http://localhost:5000${src}`;
+  return src;
+};
+
+const normalizeCategory = (v) => (v || '').toString().trim().toLowerCase();
+
 const DEFAULT_BLOGS = [
   {
     id: 1,
@@ -104,7 +113,12 @@ const formatDate = (dateStr) => {
 const BlogCard = ({ blog, featured }) => (
   <article className={`blog-card ${featured ? 'blog-card--featured' : ''}`}>
     <div className="blog-card__img-wrap">
-      <img src={blog.image} alt={blog.title} className="blog-card__img" loading="lazy" />
+      <img
+        src={resolveBlogImage(blog.image)}
+        alt={blog.title}
+        className="blog-card__img"
+        loading="lazy"
+      />
       <span className="blog-card__category">{blog.category}</span>
     </div>
     <div className="blog-card__body">
@@ -150,8 +164,11 @@ const Blog = () => {
   const blogs = getJSON('blog', 'items', DEFAULT_BLOGS);
   const categories = getJSON('blog', 'categories', DEFAULT_CATEGORIES);
 
+  const activeNormalized = normalizeCategory(activeCategory);
   const filtered =
-    activeCategory === 'All' ? blogs : blogs.filter((b) => b.category === activeCategory);
+    activeNormalized === 'all'
+      ? blogs
+      : blogs.filter((b) => normalizeCategory(b.category) === activeNormalized);
 
   const visible = filtered.slice(0, visibleCount);
   const featured = visible[0];
@@ -171,7 +188,9 @@ const Blog = () => {
             <button
               key={cat}
               className={`blog-filter__btn font-label-caps ${
-                activeCategory === cat ? 'blog-filter__btn--active' : ''
+                normalizeCategory(activeCategory) === normalizeCategory(cat)
+                  ? 'blog-filter__btn--active'
+                  : ''
               }`}
               onClick={() => {
                 setActiveCategory(cat);
@@ -212,8 +231,8 @@ const Blog = () => {
 
         {visibleCount < filtered.length && (
           <div className="blog-load-more">
-            <button className="blog-load-btn font-label-caps" onClick={() => setVisibleCount((v) => v + 3)}>
-              Load More Articles
+            <button className="blog-load-btn font-label-caps" onClick={() => setVisibleCount(filtered.length)}>
+              Load All Articles
               <span className="material-symbols-outlined" style={{ fontSize: 18 }}>
                 expand_more
               </span>
