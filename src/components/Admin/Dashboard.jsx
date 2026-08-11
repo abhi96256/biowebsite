@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import ListFieldEditor, { getListSchema } from './ListFieldEditor';
 import './Admin.css';
+import { API_URL, resolveServerMediaUrl } from '../../config/api';
 
-const API = 'http://localhost:5000/api';
+const API = API_URL;
 
 const resolveMediaUrl = (url) => {
     if (!url) return '';
     if (url.startsWith('http') || url.startsWith('blob:') || url.startsWith('data:')) return url;
-    if (url.startsWith('/uploads')) return `http://localhost:5000${url}`;
+    if (url.startsWith('/uploads')) return resolveServerMediaUrl(url);
     return url;
 };
 

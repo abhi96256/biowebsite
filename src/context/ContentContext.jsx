@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { CONTENT_API_URL, resolveServerMediaUrl } from '../config/api';
 
 const ContentContext = createContext();
-const API = 'http://localhost:5000/api/content';
+const API = CONTENT_API_URL;
 
 export const ContentProvider = ({ children }) => {
     const [content, setContent] = useState({});
@@ -29,7 +30,7 @@ export const ContentProvider = ({ children }) => {
                     contentObj[`${key}__image`] = item.image_url.startsWith('http')
                         ? item.image_url
                         : item.image_url.startsWith('/')
-                          ? `http://localhost:5000${item.image_url.startsWith('/uploads') ? item.image_url : item.image_url}`
+                          ? resolveServerMediaUrl(item.image_url)
                           : item.image_url;
                     // Public assets like /bg.png stay on the Vite origin
                     if (item.image_url.startsWith('/') && !item.image_url.startsWith('/uploads')) {
@@ -63,7 +64,7 @@ export const ContentProvider = ({ children }) => {
             return fallback;
         }
         if (trimmed.startsWith('/uploads')) {
-            return `http://localhost:5000${trimmed}`;
+            return resolveServerMediaUrl(trimmed);
         }
         return trimmed;
     };

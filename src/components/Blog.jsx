@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import './Blog.css';
 import { useContent } from '../context/ContentContext';
+import { resolveServerMediaUrl } from '../config/api';
 
 const resolveBlogImage = (src) => {
   if (!src) return '';
   if (src.startsWith('http') || src.startsWith('data:') || src.startsWith('blob:')) return src;
-  if (src.startsWith('/uploads')) return `http://localhost:5000${src}`;
+  if (src.startsWith('/uploads')) return resolveServerMediaUrl(src);
   return src;
 };
 
