@@ -5,7 +5,7 @@ import { useContent } from '../context/ContentContext';
 const About = () => {
     const { getContent, getImage } = useContent();
 
-    const label = getContent('about', 'label', 'About Suresh');
+    const label = getContent('about', 'label', 'About Dr.D.Suresh');
     const title = getContent(
         'about',
         'title',
