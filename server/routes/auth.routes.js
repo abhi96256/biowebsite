@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { pool, JWT_SECRET } = require('../config/db');
+const { authenticateToken } = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -26,6 +27,11 @@ router.post('/login', async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: 'Database error' });
     }
+});
+
+// Verify token for admin gate (login required before CMS)
+router.get('/me', authenticateToken, (req, res) => {
+    res.json({ ok: true, user: { id: req.user.id, username: req.user.username } });
 });
 
 module.exports = router;

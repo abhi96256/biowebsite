@@ -62,11 +62,16 @@ const Dashboard = ({ onLogout }) => {
     const [message, setMessage] = useState('');
     const [activeSection, setActiveSection] = useState('hero');
     const [editedContent, setEditedContent] = useState({});
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     useEffect(() => {
         fetchSections();
         fetchContent();
     }, []);
+
+    useEffect(() => {
+        setSidebarOpen(false);
+    }, [activeSection]);
 
     const fetchSections = async () => {
         try {
@@ -211,15 +216,47 @@ const Dashboard = ({ onLogout }) => {
     return (
         <div className="dashboard">
             <header className="dashboard-header">
-                <h1>Admin Dashboard</h1>
+                <div className="dashboard-header-left">
+                    <button
+                        type="button"
+                        className="menu-toggle"
+                        aria-label="Open sections menu"
+                        onClick={() => setSidebarOpen(true)}
+                    >
+                        <span />
+                        <span />
+                        <span />
+                    </button>
+                    <h1>Admin Dashboard</h1>
+                </div>
                 <button onClick={onLogout} className="logout-btn">
                     Logout
                 </button>
             </header>
 
+            {sidebarOpen && (
+                <button
+                    type="button"
+                    className="sidebar-backdrop"
+                    aria-label="Close menu"
+                    onClick={() => setSidebarOpen(false)}
+                />
+            )}
+
             <div className="dashboard-content">
-                <nav className="sidebar">
-                    <h3>Sections</h3>
+                <nav className={`sidebar ${sidebarOpen ? 'is-open' : ''}`}>
+                    <div className="sidebar-mobile-head">
+                        <h3>Sections</h3>
+                        <button
+                            type="button"
+                            className="sidebar-close"
+                            aria-label="Close sections"
+                            onClick={() => setSidebarOpen(false)}
+                        >
+                            ×
+                        </button>
+                    </div>
+                    <h3 className="sidebar-desktop-title">Sections</h3>
                     {sections.map((section) => (
                         <button
                             key={section.name}
@@ -240,10 +277,9 @@ const Dashboard = ({ onLogout }) => {
 
                     <h2 className="section-title">{activeLabel}</h2>
                     <p className="section-hint">
-                        Text aur images yahan se change karo. Jahan cards hain (Core Values, Timeline, Gallery,
-                        Highlights, Mission, Initiatives, Blog, Testimonials, Leadership) —{' '}
-                        <strong>+ Add card</strong> se naya card banao, Remove se hatao, Save ke baad website
-                        update hoti hai.
+                        Text aur images yahan se change karo. Cards wale sections me{' '}
+                        <strong>+ Add card</strong> se naya card, Remove se hatao. Save ke baad website update
+                        hoti hai.
                     </p>
 
                     <div className="content-list">
@@ -329,7 +365,7 @@ const Dashboard = ({ onLogout }) => {
                                                 item.key.includes('text') ||
                                                 item.key.includes('description') ||
                                                 item.key === 'items'
-                                                    ? 6
+                                                    ? 5
                                                     : 2
                                             }
                                         />

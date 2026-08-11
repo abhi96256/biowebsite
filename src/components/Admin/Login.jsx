@@ -17,9 +17,9 @@ const Login = ({ onLogin }) => {
             const response = await fetch(`${API_URL}/login`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ username, password }),
+                body: JSON.stringify({ username, password })
             });
 
             const data = await response.json();
@@ -39,7 +39,9 @@ const Login = ({ onLogin }) => {
     return (
         <div className="login-wrapper">
             <div className="login-card">
+                <p className="login-kicker">Secure CMS Access</p>
                 <h2 className="login-title">Admin Login</h2>
+                <p className="login-sub">Authorized users only. Login required to edit website content.</p>
                 {error && <div className="error-message">{error}</div>}
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
@@ -48,6 +50,7 @@ const Login = ({ onLogin }) => {
                             type="text"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
+                            autoComplete="username"
                             required
                         />
                     </div>
@@ -57,6 +60,7 @@ const Login = ({ onLogin }) => {
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            autoComplete="current-password"
                             required
                         />
                     </div>
@@ -64,9 +68,6 @@ const Login = ({ onLogin }) => {
                         {loading ? 'Logging in...' : 'Login'}
                     </button>
                 </form>
-                <p className="login-hint">
-                    Default: admin / admin123
-                </p>
             </div>
         </div>
     );
