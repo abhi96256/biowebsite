@@ -9,7 +9,7 @@ const About = () => {
     const title = getContent(
         'about',
         'title',
-        'Suresh is an Indian Administrative Service (IAS) officer committed to delivering efficient governance, transparent administration, and sustainable development.'
+        'Dr.Suresh is an Indian Administrative Service (IAS) officer committed to delivering efficient governance, transparent administration, and sustainable development.'
     );
     const paragraph1 = getContent(
         'about',
