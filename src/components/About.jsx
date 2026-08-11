@@ -21,7 +21,7 @@ const About = () => {
         'paragraph2',
         'His leadership philosophy focuses on innovation, teamwork, and measurable public impact while maintaining the highest standards of ethics and integrity.'
     );
-    const image = getImage('about', 'image', '/bg.png');
+    const image = getImage('about', 'image', '/bg1.png');
 
     return (
         <section className="about-section bg-surface" id="about">
