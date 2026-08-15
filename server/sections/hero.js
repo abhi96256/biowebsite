@@ -24,5 +24,9 @@ module.exports = {
         { key: 'photo_badge', value: 'IAS' },
         { key: 'photo_badge_label', value: 'Officer' },
         { key: 'main_image', value: null, image_url: '/bg.png' }
+    ,
+        { key: 'meta_title', value: 'Suresh IAS - Official Website | Hero' },
+        { key: 'meta_keywords', value: 'Suresh IAS, IAS Officer, Public Service, Hero' },
+        { key: 'meta_description', value: 'Learn more about Hero on the official website of Suresh IAS.' }
     ])
 };

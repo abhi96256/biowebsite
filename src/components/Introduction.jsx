@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import './Introduction.css';
 import { useContent } from '../context/ContentContext';
 
@@ -18,11 +19,23 @@ const Introduction = () => {
         'This platform shares my professional journey, administrative experience, leadership philosophy, development initiatives, and vision for building a more inclusive and progressive society.'
     );
 
-    const drop = primary.trim().charAt(0);
-    const rest = primary.trim().slice(1);
+    // Meta tags from CMS
+    const metaTitle = getContent('introduction', 'meta_title', 'Suresh IAS - Official Website | Introduction');
+    const metaKeywords = getContent('introduction', 'meta_keywords', 'Suresh IAS, IAS Officer, Public Service, Governance, Leadership, Administration');
+    const metaDescription = getContent('introduction', 'meta_description', 'Welcome to the official website of Suresh IAS. Learn about his journey in public service, administrative experience, leadership philosophy, and vision for inclusive development.');
 
     return (
-        <section className="introduction-section" id="about">
+        <>
+            <Helmet>
+                <title>{metaTitle}</title>
+                <meta name="keywords" content={metaKeywords} />
+                <meta name="description" content={metaDescription} />
+                <meta property="og:title" content={metaTitle} />
+                <meta property="og:description" content={metaDescription} />
+                <meta name="twitter:title" content={metaTitle} />
+                <meta name="twitter:description" content={metaDescription} />
+            </Helmet>
+            <section className="introduction-section" id="about">
             <div className="intro-bg-elements">
                 <div className="intro-circle-1"></div>
                 <div className="intro-circle-2"></div>
@@ -51,15 +64,13 @@ const Introduction = () => {
                     </div>
 
                     <div className="intro-body">
-                        <p className="intro-primary-text">
-                            <span className="drop-cap">{drop}</span>
-                            {rest}
-                        </p>
-                        <p className="intro-secondary-text">{secondary}</p>
+                        <div className="intro-primary-text rich-text-content" dangerouslySetInnerHTML={{ __html: primary }} />
+                        <div className="intro-secondary-text rich-text-content" dangerouslySetInnerHTML={{ __html: secondary }} />
                     </div>
                 </div>
             </div>
         </section>
+        </>
     );
 };
 

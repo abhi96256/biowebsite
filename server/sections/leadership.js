@@ -18,5 +18,9 @@ module.exports = {
                 { label: 'Compassion', image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=900&h=1200&fit=crop' }
             ])
         }
+    ,
+        { key: 'meta_title', value: 'Suresh IAS - Official Website | Leadership' },
+        { key: 'meta_keywords', value: 'Suresh IAS, IAS Officer, Public Service, Leadership' },
+        { key: 'meta_description', value: 'Learn more about Leadership on the official website of Suresh IAS.' }
     ])
 };

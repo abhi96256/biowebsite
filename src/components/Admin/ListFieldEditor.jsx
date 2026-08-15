@@ -79,20 +79,32 @@ const LIST_SCHEMAS = {
     },
     media_gallery_photo_categories: {
         label: 'Photo category cards',
-        addLabel: 'Add card',
-        blank: () => ({ name: 'New category', icon: 'photo_camera' }),
+        addLabel: 'Add category',
+        blank: () => ({
+            name: 'New category',
+            icon: 'photo_camera',
+            cover: '',
+            images: []
+        }),
         fields: [
             { key: 'name', label: 'Name', type: 'text' },
-            { key: 'icon', label: 'Icon name', type: 'text', placeholder: 'Material icon e.g. groups' }
+            { key: 'icon', label: 'Icon name', type: 'text', placeholder: 'Material icon e.g. groups' },
+            { key: 'cover', label: 'Cover Image (thumbnail)', type: 'image' },
+            { key: 'images', label: 'Gallery Images', type: 'multi-image' }
         ]
     },
     media_gallery_video_categories: {
         label: 'Video category cards',
-        addLabel: 'Add card',
-        blank: () => ({ name: 'New category', icon: 'videocam' }),
+        addLabel: 'Add category',
+        blank: () => ({
+            name: 'New category',
+            icon: 'videocam',
+            videos: []
+        }),
         fields: [
             { key: 'name', label: 'Name', type: 'text' },
-            { key: 'icon', label: 'Icon name', type: 'text' }
+            { key: 'icon', label: 'Icon name', type: 'text' },
+            { key: 'videos', label: 'Videos', type: 'multi-video' }
         ]
     },
     awards_items: {
@@ -367,6 +379,140 @@ const ListFieldEditor = ({ section, fieldKey, value, onChange }) => {
                                                 )
                                             }
                                         />
+                                    </div>
+                                );
+                            }
+
+                            if (f.type === 'multi-image') {
+                                const imgs = Array.isArray(row[f.key]) ? row[f.key] : [];
+                                const uploadKey = `multi-img-${index}-${f.key}`;
+                                return (
+                                    <div key={f.key} className="list-field list-field--full">
+                                        <label>{f.label}</label>
+                                        <div className="multi-img-grid">
+                                            {imgs.map((imgUrl, imgIdx) => (
+                                                <div key={imgIdx} className="multi-img-item">
+                                                    <img src={resolveMediaUrl(imgUrl)} alt={`img ${imgIdx + 1}`} />
+                                                    <button
+                                                        type="button"
+                                                        className="multi-img-remove"
+                                                        title="Remove"
+                                                        onClick={() => {
+                                                            const next = imgs.filter((_, i) => i !== imgIdx);
+                                                            updateItem(index, f.key, next);
+                                                        }}
+                                                    >×</button>
+                                                </div>
+                                            ))}
+                                            <label htmlFor={uploadKey} className="multi-img-add">
+                                                <input
+                                                    id={uploadKey}
+                                                    type="file"
+                                                    accept="image/*"
+                                                    multiple
+                                                    className="file-input"
+                                                    onChange={async (e) => {
+                                                        const files = Array.from(e.target.files || []);
+                                                        if (!files.length) return;
+                                                        setUploading(uploadKey);
+                                                        try {
+                                                            const urls = await Promise.all(files.map(uploadImage));
+                                                            updateItem(index, f.key, [...imgs, ...urls]);
+                                                        } catch (err) {
+                                                            alert(err.message || 'Upload failed');
+                                                        } finally {
+                                                            setUploading(null);
+                                                            e.target.value = '';
+                                                        }
+                                                    }}
+                                                />
+                                                {uploading === uploadKey ? (
+                                                    <span style={{ fontSize: 12 }}>Uploading…</span>
+                                                ) : (
+                                                    <>
+                                                        <span style={{ fontSize: 28 }}>+</span>
+                                                        <span style={{ fontSize: 11 }}>Add Photos</span>
+                                                    </>
+                                                )}
+                                            </label>
+                                        </div>
+                                    </div>
+                                );
+                            }
+
+                            if (f.type === 'multi-video') {
+                                const vids = Array.isArray(row[f.key]) ? row[f.key] : [];
+                                const uploadKey = `multi-vid-${index}-${f.key}`;
+                                return (
+                                    <div key={f.key} className="list-field list-field--full">
+                                        <label>{f.label}</label>
+                                        <div className="multi-vid-list">
+                                            {vids.map((vidUrl, vidIdx) => (
+                                                <div key={vidIdx} className="multi-vid-item">
+                                                    <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--secondary)' }}>
+                                                        {vidUrl.includes('youtube') ? 'smart_display' : 'videocam'}
+                                                    </span>
+                                                    <span className="multi-vid-url">{vidUrl}</span>
+                                                    <button
+                                                        type="button"
+                                                        className="multi-img-remove"
+                                                        title="Remove"
+                                                        onClick={() => {
+                                                            updateItem(index, f.key, vids.filter((_, i) => i !== vidIdx));
+                                                        }}
+                                                    >×</button>
+                                                </div>
+                                            ))}
+                                            {/* Upload video file */}
+                                            <div className="multi-vid-actions">
+                                                <label htmlFor={`${uploadKey}-file`} className="upload-btn" style={{ cursor: 'pointer', fontSize: 13 }}>
+                                                    <input
+                                                        id={`${uploadKey}-file`}
+                                                        type="file"
+                                                        accept="video/*"
+                                                        multiple
+                                                        className="file-input"
+                                                        onChange={async (e) => {
+                                                            const files = Array.from(e.target.files || []);
+                                                            if (!files.length) return;
+                                                            setUploading(uploadKey);
+                                                            try {
+                                                                const urls = await Promise.all(files.map(uploadImage));
+                                                                updateItem(index, f.key, [...vids, ...urls]);
+                                                            } catch (err) {
+                                                                alert(err.message || 'Upload failed');
+                                                            } finally {
+                                                                setUploading(null);
+                                                                e.target.value = '';
+                                                            }
+                                                        }}
+                                                    />
+                                                    {uploading === uploadKey ? 'Uploading…' : '+ Upload Video'}
+                                                </label>
+                                                {/* Or paste YouTube URL */}
+                                                <div className="multi-vid-yt">
+                                                    <input
+                                                        type="text"
+                                                        className="content-input"
+                                                        placeholder="Or paste YouTube link..."
+                                                        style={{ fontSize: 13 }}
+                                                        onKeyDown={(e) => {
+                                                            if (e.key === 'Enter' && e.target.value.trim()) {
+                                                                updateItem(index, f.key, [...vids, e.target.value.trim()]);
+                                                                e.target.value = '';
+                                                            }
+                                                        }}
+                                                        onBlur={(e) => {
+                                                            if (e.target.value.trim()) {
+                                                                updateItem(index, f.key, [...vids, e.target.value.trim()]);
+                                                                e.target.value = '';
+                                                            }
+                                                        }}
+                                                    />
+                                                    <span style={{ fontSize: 11, color: '#888', marginTop: 2 }}>Press Enter to add</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 );
                             }

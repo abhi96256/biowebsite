@@ -22,5 +22,9 @@ module.exports = {
                 { text: 'Promote sustainable development.', icon: 'public' }
             ])
         }
+    ,
+        { key: 'meta_title', value: 'Suresh IAS - Official Website | Vision & Mission' },
+        { key: 'meta_keywords', value: 'Suresh IAS, IAS Officer, Public Service, Vision & Mission' },
+        { key: 'meta_description', value: 'Learn more about Vision & Mission on the official website of Suresh IAS.' }
     ])
 };

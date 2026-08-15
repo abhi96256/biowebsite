@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import './VisionMission.css';
 import { useContent } from '../context/ContentContext';
 
@@ -27,7 +28,23 @@ const VisionMission = () => {
     const visionFooter = getContent('vision_mission', 'vision_footer', 'Guiding north star');
     const missionItems = getJSON('vision_mission', 'mission_items', DEFAULT_MISSION);
 
+    // SEO meta tags from CMS
+    const metaTitle = getContent('vision_mission', 'meta_title', 'Vision & Mission - Dr.D.Suresh IAS Official Website');
+    const metaKeywords = getContent('vision_mission', 'meta_keywords', 'Suresh IAS, Vision, Mission, Governance, Public Service');
+    const metaDescription = getContent('vision_mission', 'meta_description', 'Discover the vision and mission of Dr.D.Suresh IAS — building a modern, transparent, and inclusive administration.');
+
     return (
+        <>
+            <Helmet>
+                <title>{metaTitle}</title>
+                <meta name="description" content={metaDescription} />
+                <meta name="keywords" content={metaKeywords} />
+                <meta property="og:title" content={metaTitle} />
+                <meta property="og:description" content={metaDescription} />
+                <meta name="twitter:card" content="summary" />
+                <meta name="twitter:title" content={metaTitle} />
+                <meta name="twitter:description" content={metaDescription} />
+            </Helmet>
         <section className="vision-mission-section" id="vision-mission">
             <div className="max-w-container-max px-margin-mobile md-px-margin-desktop">
                 <div className="vm-header">
@@ -49,7 +66,7 @@ const VisionMission = () => {
                             <span className="vision-quote-mark" aria-hidden="true">
                                 “
                             </span>
-                            <h3 className="vision-statement">{visionText}</h3>
+                            <div className="vision-statement rich-text-content" dangerouslySetInnerHTML={{ __html: visionText }} />
                             <div className="vision-footer">
                                 <span className="vision-footer-line" aria-hidden="true" />
                                 <span className="vision-footer-text">{visionFooter}</span>
@@ -83,6 +100,7 @@ const VisionMission = () => {
                 </div>
             </div>
         </section>
+        </>
     );
 };
 

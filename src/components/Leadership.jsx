@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import AccordionGallery from './AccordionGallery';
 import './Leadership.css';
 import { useContent } from '../context/ContentContext';
@@ -31,13 +32,29 @@ const Leadership = () => {
         ...p
     }));
 
+    // SEO meta tags from CMS
+    const metaTitle = getContent('leadership', 'meta_title', 'Leadership - Dr.D.Suresh IAS Official Website');
+    const metaKeywords = getContent('leadership', 'meta_keywords', 'Suresh IAS, Leadership, Governance, Public Service');
+    const metaDescription = getContent('leadership', 'meta_description', 'Explore the leadership philosophy of Dr.D.Suresh IAS — built on integrity, accountability, innovation, and compassion.');
+
     return (
+        <>
+            <Helmet>
+                <title>{metaTitle}</title>
+                <meta name="description" content={metaDescription} />
+                <meta name="keywords" content={metaKeywords} />
+                <meta property="og:title" content={metaTitle} />
+                <meta property="og:description" content={metaDescription} />
+                <meta name="twitter:card" content="summary" />
+                <meta name="twitter:title" content={metaTitle} />
+                <meta name="twitter:description" content={metaDescription} />
+            </Helmet>
         <section className="leadership-section" id="leadership">
             <div className="max-w-container-max px-margin-mobile md-px-margin-desktop">
                 <div className="leadership-header">
                     <span className="font-label-caps text-secondary uppercase tracking-widest">{label}</span>
                     <h2 className="font-headline-lg leadership-headline">{headline}</h2>
-                    <p className="font-body-md text-on-surface-variant">{description}</p>
+                    <div className="font-body-md text-on-surface-variant rich-text-content" dangerouslySetInnerHTML={{ __html: description }} />
                 </div>
                 <div className="leadership-gallery">
                     <AccordionGallery
@@ -63,6 +80,7 @@ const Leadership = () => {
                 </div>
             </div>
         </section>
+        </>
     );
 };
 

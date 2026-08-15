@@ -1,4 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useEditor, EditorContent } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
+import Placeholder from '@tiptap/extension-placeholder';
+import Link from '@tiptap/extension-link';
+import Underline from '@tiptap/extension-underline';
+import TextAlign from '@tiptap/extension-text-align';
 import ListFieldEditor, { getListSchema } from './ListFieldEditor';
 import './Admin.css';
 import { API_URL, resolveServerMediaUrl } from '../../config/api';
@@ -22,6 +28,228 @@ const isImageField = (item) => {
         k === 'signature' ||
         k.endsWith('_image') ||
         k.endsWith('_photo')
+    );
+};
+
+const isRichTextField = (item) => {
+    const k = (item.key || '').toLowerCase();
+    // Exclude SEO meta fields — these should stay as plain inputs
+    if (k.startsWith('meta_')) return false;
+    return (
+        k.includes('description') ||
+        k.includes('paragraph') ||
+        k.includes('content') ||
+        k.includes('text') ||
+        k === 'primary_text' ||
+        k === 'secondary_text'
+    );
+};
+
+const RichTextEditor = ({ value, onChange }) => {
+    const editor = useEditor({
+        extensions: [
+            StarterKit,
+            Placeholder.configure({
+                placeholder: 'Start typing...'
+            }),
+            Link.configure({
+                openOnClick: false
+            }),
+            Underline,
+            TextAlign.configure({
+                types: ['heading', 'paragraph']
+            })
+        ],
+        content: value || '',
+        onUpdate: ({ editor }) => {
+            onChange(editor.getHTML());
+        },
+        editorProps: {
+            attributes: {
+                class: 'tiptap-editor'
+            }
+        }
+    });
+
+    if (!editor) return null;
+
+    return (
+        <div className="rich-text-editor">
+            <div className="editor-toolbar">
+                <button
+                    type="button"
+                    onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+                    className={`toolbar-btn ${editor.isActive('heading', { level: 1 }) ? 'active' : ''}`}
+                >
+                    H1
+                </button>
+                <button
+                    type="button"
+                    onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+                    className={`toolbar-btn ${editor.isActive('heading', { level: 2 }) ? 'active' : ''}`}
+                >
+                    H2
+                </button>
+                <button
+                    type="button"
+                    onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+                    className={`toolbar-btn ${editor.isActive('heading', { level: 3 }) ? 'active' : ''}`}
+                >
+                    H3
+                </button>
+                <button
+                    type="button"
+                    onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
+                    className={`toolbar-btn ${editor.isActive('heading', { level: 4 }) ? 'active' : ''}`}
+                >
+                    H4
+                </button>
+                <button
+                    type="button"
+                    onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
+                    className={`toolbar-btn ${editor.isActive('heading', { level: 5 }) ? 'active' : ''}`}
+                >
+                    H5
+                </button>
+                <button
+                    type="button"
+                    onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
+                    className={`toolbar-btn ${editor.isActive('heading', { level: 6 }) ? 'active' : ''}`}
+                >
+                    H6
+                </button>
+                <button
+                    type="button"
+                    onClick={() => editor.chain().focus().setParagraph().run()}
+                    className={`toolbar-btn ${editor.isActive('paragraph') ? 'active' : ''}`}
+                >
+                    P
+                </button>
+                <div className="toolbar-divider"></div>
+                <button
+                    type="button"
+                    onClick={() => editor.chain().focus().toggleBold().run()}
+                    className={`toolbar-btn ${editor.isActive('bold') ? 'active' : ''}`}
+                >
+                    <strong>B</strong>
+                </button>
+                <button
+                    type="button"
+                    onClick={() => editor.chain().focus().toggleItalic().run()}
+                    className={`toolbar-btn ${editor.isActive('italic') ? 'active' : ''}`}
+                >
+                    <em>I</em>
+                </button>
+                <button
+                    type="button"
+                    onClick={() => editor.chain().focus().toggleStrike().run()}
+                    className={`toolbar-btn ${editor.isActive('strike') ? 'active' : ''}`}
+                >
+                    <s>S</s>
+                </button>
+                <button
+                    type="button"
+                    onClick={() => editor.chain().focus().toggleUnderline().run()}
+                    className={`toolbar-btn ${editor.isActive('underline') ? 'active' : ''}`}
+                >
+                    <u>U</u>
+                </button>
+                <button
+                    type="button"
+                    onClick={() => editor.chain().focus().toggleCode().run()}
+                    className={`toolbar-btn ${editor.isActive('code') ? 'active' : ''}`}
+                >
+                    &lt;/&gt;
+                </button>
+                <div className="toolbar-divider"></div>
+                <button
+                    type="button"
+                    onClick={() => editor.chain().focus().toggleBulletList().run()}
+                    className={`toolbar-btn ${editor.isActive('bulletList') ? 'active' : ''}`}
+                >
+                    • List
+                </button>
+                <button
+                    type="button"
+                    onClick={() => editor.chain().focus().toggleOrderedList().run()}
+                    className={`toolbar-btn ${editor.isActive('orderedList') ? 'active' : ''}`}
+                >
+                    1. List
+                </button>
+                <button
+                    type="button"
+                    onClick={() => editor.chain().focus().toggleBlockquote().run()}
+                    className={`toolbar-btn ${editor.isActive('blockquote') ? 'active' : ''}`}
+                >
+                    Quote
+                </button>
+                <button
+                    type="button"
+                    onClick={() => {
+                        const previousUrl = editor.getAttributes('link').href;
+                        const url = window.prompt('URL', previousUrl);
+                        if (url === null) {
+                            return;
+                        }
+                        if (url === '') {
+                            editor.chain().focus().extendMarkRange('link').unsetLink().run();
+                            return;
+                        }
+                        editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+                    }}
+                    className={`toolbar-btn ${editor.isActive('link') ? 'active' : ''}`}
+                >
+                    Link
+                </button>
+                <button
+                    type="button"
+                    onClick={() => editor.chain().focus().setHorizontalRule().run()}
+                    className="toolbar-btn"
+                >
+                    ---
+                </button>
+                <div className="toolbar-divider"></div>
+                <button
+                    type="button"
+                    onClick={() => editor.chain().focus().setTextAlign('left').run()}
+                    className={`toolbar-btn ${editor.isActive({ textAlign: 'left' }) ? 'active' : ''}`}
+                >
+                    Left
+                </button>
+                <button
+                    type="button"
+                    onClick={() => editor.chain().focus().setTextAlign('center').run()}
+                    className={`toolbar-btn ${editor.isActive({ textAlign: 'center' }) ? 'active' : ''}`}
+                >
+                    Center
+                </button>
+                <button
+                    type="button"
+                    onClick={() => editor.chain().focus().setTextAlign('right').run()}
+                    className={`toolbar-btn ${editor.isActive({ textAlign: 'right' }) ? 'active' : ''}`}
+                >
+                    Right
+                </button>
+                <div className="toolbar-divider"></div>
+                <button
+                    type="button"
+                    onClick={() => editor.chain().focus().undo().run()}
+                    disabled={!editor.can().undo()}
+                    className="toolbar-btn"
+                >
+                    Undo
+                </button>
+                <button
+                    type="button"
+                    onClick={() => editor.chain().focus().redo().run()}
+                    disabled={!editor.can().redo()}
+                    className="toolbar-btn"
+                >
+                    Redo
+                </button>
+            </div>
+            <EditorContent editor={editor} />
+        </div>
     );
 };
 
@@ -351,6 +579,11 @@ const Dashboard = ({ onLogout }) => {
                                                 </p>
                                             )}
                                         </div>
+                                    ) : isRichTextField(item) ? (
+                                        <RichTextEditor
+                                            value={typeof getRawValue(item) === 'string' ? getRawValue(item) : ''}
+                                            onChange={(content) => handleTextChange(item.id, content)}
+                                        />
                                     ) : (
                                         <textarea
                                             value={

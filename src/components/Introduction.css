@@ -210,7 +210,8 @@
 }
 
 /* Drop Cap Styling */
-.drop-cap {
+.intro-primary-text::first-letter,
+.intro-primary-text > p:first-of-type::first-letter {
     float: left;
     font-size: 5.5rem;
     line-height: 0.8;
@@ -257,7 +258,8 @@
         font-size: 1.05rem;
     }
 
-    .drop-cap {
+    .intro-primary-text::first-letter,
+    .intro-primary-text > p:first-of-type::first-letter {
         font-size: 4rem;
         padding-top: 4px;
         padding-right: 10px;

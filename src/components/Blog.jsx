@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import './Blog.css';
 import { useContent } from '../context/ContentContext';
 import { resolveServerMediaUrl } from '../config/api';
@@ -165,6 +166,11 @@ const Blog = () => {
   const blogs = getJSON('blog', 'items', DEFAULT_BLOGS);
   const categories = getJSON('blog', 'categories', DEFAULT_CATEGORIES);
 
+  // SEO meta tags from CMS
+  const metaTitle = getContent('blog', 'meta_title', 'Blog & Insights - Dr.D.Suresh IAS Official Website');
+  const metaKeywords = getContent('blog', 'meta_keywords', 'Suresh IAS, Blog, Governance, Leadership, Public Service');
+  const metaDescription = getContent('blog', 'meta_description', 'Read articles on governance, leadership, and public service by Dr.D.Suresh IAS.');
+
   const activeNormalized = normalizeCategory(activeCategory);
   const filtered =
     activeNormalized === 'all'
@@ -176,12 +182,23 @@ const Blog = () => {
   const rest = visible.slice(1);
 
   return (
+    <>
+      <Helmet>
+        <title>{metaTitle}</title>
+        <meta name="description" content={metaDescription} />
+        <meta name="keywords" content={metaKeywords} />
+        <meta property="og:title" content={metaTitle} />
+        <meta property="og:description" content={metaDescription} />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={metaTitle} />
+        <meta name="twitter:description" content={metaDescription} />
+      </Helmet>
     <section className="blog-section" id="blog">
       <div className="max-w-container-max px-margin-mobile md-px-margin-desktop blog-section__inner">
         <div className="blog-section__header">
           <span className="font-label-caps blog-section__label">{label}</span>
           <h2 className="font-headline-lg blog-section__title">{headline}</h2>
-          <p className="font-body-md blog-section__subtitle">{description}</p>
+          <div className="font-body-md blog-section__subtitle rich-text-content" dangerouslySetInnerHTML={{ __html: description }} />
         </div>
 
         <div className="blog-filter">
@@ -242,6 +259,7 @@ const Blog = () => {
         )}
       </div>
     </section>
+    </>
   );
 };
 

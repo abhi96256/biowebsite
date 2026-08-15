@@ -105,5 +105,9 @@ module.exports = {
                 }
             ])
         }
+    ,
+        { key: 'meta_title', value: 'Suresh IAS - Official Website | Blog' },
+        { key: 'meta_keywords', value: 'Suresh IAS, IAS Officer, Public Service, Blog' },
+        { key: 'meta_description', value: 'Learn more about Blog on the official website of Suresh IAS.' }
     ])
 };

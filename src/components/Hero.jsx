@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import StrokeText from './StrokeText';
 import './Hero.css';
 import { useContent } from '../context/ContentContext';
@@ -30,7 +31,29 @@ const Hero = () => {
         `${getContent('hero', 'stat_2_label', 'Awards & Recognition')}: ${getContent('hero', 'stat_2_value', '20+')}`
     ];
 
+    // SEO meta tags from CMS
+    const metaTitle = getContent('hero', 'meta_title', 'Dr.D.Suresh IAS - Official Website');
+    const metaKeywords = getContent('hero', 'meta_keywords', 'Suresh IAS, IAS Officer, Public Service, Leadership');
+    const metaDescription = getContent('hero', 'meta_description', 'Official website of Dr.D.Suresh IAS. Dedicated to transparent governance, community empowerment, and sustainable public administration.');
+    const siteUrl = typeof window !== 'undefined' ? window.location.origin : '';
+
     return (
+        <>
+            <Helmet>
+                <title>{metaTitle}</title>
+                <meta name="description" content={metaDescription} />
+                <meta name="keywords" content={metaKeywords} />
+                <link rel="canonical" href={siteUrl} />
+                <meta property="og:title" content={metaTitle} />
+                <meta property="og:description" content={metaDescription} />
+                <meta property="og:image" content={photo} />
+                <meta property="og:url" content={siteUrl} />
+                <meta property="og:type" content="website" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content={metaTitle} />
+                <meta name="twitter:description" content={metaDescription} />
+                <meta name="twitter:image" content={photo} />
+            </Helmet>
         <header className="hero-v2" id="home">
             <div className="hero-v2__bg">
                 <div className="hero-v2__bg-grain" />
@@ -64,7 +87,7 @@ const Hero = () => {
                         />
                     </h1>
                     <p className="hero-v2__tagline font-body-md">{tagline}</p>
-                    <p className="hero-v2__description font-body-md">{description}</p>
+                    <div className="hero-v2__description font-body-md rich-text-content" dangerouslySetInnerHTML={{ __html: description }} />
 
                     <div className="hero-v2__keywords">
                         {keywords.map((k) => (
@@ -148,6 +171,7 @@ const Hero = () => {
                 ))}
             </div>
         </header>
+        </>
     );
 };
 
