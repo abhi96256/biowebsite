@@ -21,6 +21,7 @@ import Footer from './components/Footer';
 import Admin from './components/Admin/Admin';
 import SmoothScroll from './components/SmoothScroll';
 import GSAPScrollEffects from './components/GSAPScrollEffects';
+import BlogDetails from './components/BlogDetails';
 import './App.css';
 import './mobile.css';
 
@@ -53,6 +54,7 @@ function App() {
         </SmoothScroll>
       } />
       <Route path="/admin" element={<Admin />} />
+      <Route path="/blog/:id" element={<BlogDetails />} />
     </Routes>
   );
 }

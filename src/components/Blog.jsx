@@ -13,7 +13,7 @@ const resolveBlogImage = (src) => {
 
 const normalizeCategory = (v) => (v || '').toString().trim().toLowerCase();
 
-const DEFAULT_BLOGS = [
+export const DEFAULT_BLOGS = [
   {
     id: 1,
     category: 'Governance',
@@ -112,6 +112,8 @@ const formatDate = (dateStr) => {
   return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
 };
 
+import { Link } from 'react-router-dom';
+
 const BlogCard = ({ blog, featured }) => (
   <article className={`blog-card ${featured ? 'blog-card--featured' : ''}`}>
     <div className="blog-card__img-wrap">
@@ -141,12 +143,12 @@ const BlogCard = ({ blog, featured }) => (
       </div>
       <h3 className={`blog-card__title ${featured ? 'font-headline-md' : ''}`}>{blog.title}</h3>
       <p className="blog-card__excerpt font-body-md">{blog.excerpt}</p>
-      <button className="blog-card__btn">
+      <Link to={`/blog/${encodeURIComponent(blog.id || blog.title)}`} className="blog-card__btn" style={{ textDecoration: 'none', display: 'inline-flex' }}>
         Read Article
         <span className="material-symbols-outlined" style={{ fontSize: 18 }}>
           arrow_forward
         </span>
-      </button>
+      </Link>
     </div>
   </article>
 );

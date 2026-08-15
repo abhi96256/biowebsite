@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { API_URL, resolveServerMediaUrl } from '../../config/api';
+import RichTextEditor from './RichTextEditor';
 
 const API = API_URL;
 
@@ -24,7 +25,12 @@ const LIST_SCHEMAS = {
             date: new Date().toISOString().slice(0, 10),
             readTime: '5 min read',
             image: '',
-            featured: false
+            featured: false,
+            content: '',
+            relatedBlogs: [],
+            metaTitle: '',
+            metaDescription: '',
+            metaKeywords: ''
         }),
         fields: [
             { key: 'title', label: 'Title', type: 'text' },
@@ -33,7 +39,12 @@ const LIST_SCHEMAS = {
             { key: 'readTime', label: 'Read time', type: 'text' },
             { key: 'excerpt', label: 'Excerpt', type: 'textarea' },
             { key: 'featured', label: 'Featured', type: 'checkbox' },
-            { key: 'image', label: 'Image', type: 'image' }
+            { key: 'image', label: 'Image', type: 'image' },
+            { key: 'content', label: 'Content (HTML/Text)', type: 'rich-text' },
+            { key: 'metaTitle', label: 'SEO Meta Title', type: 'text', placeholder: 'e.g. My Awesome Blog Post' },
+            { key: 'metaDescription', label: 'SEO Meta Description', type: 'textarea' },
+            { key: 'metaKeywords', label: 'SEO Meta Keywords', type: 'text', placeholder: 'e.g. blog, governance, tech' },
+            { key: 'relatedBlogs', label: 'Select Related Blogs', type: 'related-blogs' }
         ]
     },
     testimonials_items: {
@@ -359,6 +370,37 @@ const ListFieldEditor = ({ section, fieldKey, value, onChange }) => {
                                 );
                             }
 
+                            if (f.type === 'related-blogs') {
+                                const selectedBlogs = Array.isArray(row[f.key]) ? row[f.key] : [];
+                                return (
+                                    <div key={f.key} className="list-field list-field--full">
+                                        <label>{f.label}</label>
+                                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginTop: '10px' }}>
+                                            {items.map((b, bIdx) => {
+                                                if (bIdx === index) return null; // Don't relate to itself
+                                                const bId = b.id || b.title; // Using id or title as identifier
+                                                return (
+                                                    <label key={bIdx} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px' }}>
+                                                        <input 
+                                                            type="checkbox" 
+                                                            checked={selectedBlogs.includes(bId)}
+                                                            onChange={(e) => {
+                                                                if (e.target.checked) {
+                                                                    updateItem(index, f.key, [...selectedBlogs, bId]);
+                                                                } else {
+                                                                    updateItem(index, f.key, selectedBlogs.filter(id => id !== bId));
+                                                                }
+                                                            }}
+                                                        />
+                                                        {b.title || `Blog #${bIdx + 1}`}
+                                                    </label>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                );
+                            }
+
                             if (f.type === 'lines') {
                                 const lines = Array.isArray(row[f.key]) ? row[f.key].join('\n') : '';
                                 return (
@@ -526,6 +568,32 @@ const ListFieldEditor = ({ section, fieldKey, value, onChange }) => {
                                             rows={3}
                                             value={row[f.key] ?? ''}
                                             onChange={(e) => updateItem(index, f.key, e.target.value)}
+                                        />
+                                    </div>
+                                );
+                            }
+
+                            if (f.type === 'textarea-large') {
+                                return (
+                                    <div key={f.key} className="list-field list-field--full">
+                                        <label>{f.label}</label>
+                                        <textarea
+                                            className="content-input"
+                                            rows={10}
+                                            value={row[f.key] ?? ''}
+                                            onChange={(e) => updateItem(index, f.key, e.target.value)}
+                                        />
+                                    </div>
+                                );
+                            }
+
+                            if (f.type === 'rich-text') {
+                                return (
+                                    <div key={f.key} className="list-field list-field--full">
+                                        <label>{f.label}</label>
+                                        <RichTextEditor
+                                            value={row[f.key] ?? ''}
+                                            onChange={(val) => updateItem(index, f.key, val)}
                                         />
                                     </div>
                                 );
