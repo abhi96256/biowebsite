@@ -62,7 +62,7 @@ const Lightbox = ({ category, type, onClose }) => {
 
     const media = type === 'photos'
         ? (category.images || []).map(resolveUrl).filter(Boolean)
-        : (category.videos || []).filter(Boolean);
+        : (category.videos || []).map(resolveUrl).filter(Boolean);
 
     const prev = useCallback(() => setFullscreenIdx(i => Math.max(0, i - 1)), []);
     const next = useCallback(() => setFullscreenIdx(i => Math.min(media.length - 1, i + 1)), [media.length]);
