@@ -2,6 +2,7 @@ const express = require('express');
 const { pool } = require('../config/db');
 const { authenticateToken } = require('../middleware/auth');
 const { upload } = require('../middleware/upload');
+const { uploadToCloudinary } = require('../config/cloudinary');
 const { getSectionList } = require('../sections');
 
 const router = express.Router();
@@ -23,7 +24,15 @@ async function updateContentById(req, res) {
     const { value } = req.body;
     let imageUrl;
     if (req.file) {
-        imageUrl = `/uploads/${req.file.filename}`;
+        try {
+            imageUrl = await uploadToCloudinary(req.file.path);
+        } catch (uploadErr) {
+            console.warn('Cloudinary upload failed, falling back to local:', uploadErr.message);
+            imageUrl = `/uploads/${req.file.filename}`;
+        }
+        if (!imageUrl) {
+            imageUrl = `/uploads/${req.file.filename}`;
+        }
     } else if (req.body.image === '') {
         imageUrl = null;
     } else if (req.body.image === undefined) {
@@ -64,50 +73,69 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Upload image for list items (blog, testimonials, gallery, leadership…)
-router.post('/upload', authenticateToken, upload.single('image'), (req, res) => {
-    if (!req.file) {
-        return res.status(400).json({ error: 'No image uploaded' });
-    }
-    res.json({ url: `/uploads/${req.file.filename}` });
-});
+    // Upload image/video for list items (blog, testimonials, gallery, leadership…)
+    router.post('/upload', authenticateToken, upload.single('image'), async (req, res) => {
+        if (!req.file) {
+            return res.status(400).json({ error: 'No image uploaded' });
+        }
+        try {
+            const cloudUrl = await uploadToCloudinary(req.file.path);
+            if (cloudUrl) {
+                return res.json({ url: cloudUrl });
+            }
+        } catch (uploadErr) {
+            console.warn('Cloudinary upload failed, falling back to local:', uploadErr.message);
+        }
+        res.json({ url: `/uploads/${req.file.filename}` });
+    });
 
-router.get('/:section', async (req, res) => {
-    const { section } = req.params;
-    try {
-        const [rows] = await pool.execute('SELECT * FROM content WHERE section = ? ORDER BY `key`', [section]);
-        res.json(rows);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
+    router.get('/:section', async (req, res) => {
+        const { section } = req.params;
+        try {
+            const [rows] = await pool.execute('SELECT * FROM content WHERE section = ? ORDER BY `key`', [section]);
+            res.json(rows);
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+        }
+    });
 
-router.put('/item/:id', authenticateToken, optionalImageUpload, updateContentById);
-router.put('/:id', authenticateToken, optionalImageUpload, updateContentById);
+    router.put('/item/:id', authenticateToken, optionalImageUpload, updateContentById);
+    router.put('/:id', authenticateToken, optionalImageUpload, updateContentById);
 
-router.post('/', authenticateToken, upload.single('image'), async (req, res) => {
-    const { section, key, value } = req.body;
-    const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
+    router.post('/', authenticateToken, upload.single('image'), async (req, res) => {
+        const { section, key, value } = req.body;
+        let imageUrl = null;
+        if (req.file) {
+            try {
+                imageUrl = await uploadToCloudinary(req.file.path);
+            } catch (uploadErr) {
+                console.warn('Cloudinary upload failed, falling back to local:', uploadErr.message);
+                imageUrl = `/uploads/${req.file.filename}`;
+            }
+            if (!imageUrl) {
+                imageUrl = `/uploads/${req.file.filename}`;
+            }
+        }
 
-    try {
-        await pool.execute(
-            'INSERT INTO content (section, `key`, value, image_url) VALUES (?, ?, ?, ?)',
-            [section, key, value, imageUrl]
-        );
-        res.json({ message: 'Content created successfully' });
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
+        try {
+            await pool.execute(
+                'INSERT INTO content (section, `key`, value, image_url) VALUES (?, ?, ?, ?)',
+                [section, key, value, imageUrl]
+            );
+            res.json({ message: 'Content created successfully' });
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+        }
+    });
 
-router.delete('/:id', authenticateToken, async (req, res) => {
-    const { id } = req.params;
-    try {
-        await pool.execute('DELETE FROM content WHERE id = ?', [id]);
-        res.json({ message: 'Content deleted successfully' });
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
+    router.delete('/:id', authenticateToken, async (req, res) => {
+        const { id } = req.params;
+        try {
+            await pool.execute('DELETE FROM content WHERE id = ?', [id]);
+            res.json({ message: 'Content deleted successfully' });
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+        }
+    });
 
-module.exports = router;
+    module.exports = router;
