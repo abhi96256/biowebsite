@@ -29,7 +29,7 @@ async function uploadToCloudinary(filePath, folder = 'ias_website') {
         });
 
         // Clean up temporary local file
-        fs.unlink(filePath, () => {});
+        fs.unlink(filePath, () => { });
 
         return result.secure_url;
     } catch (err) {
